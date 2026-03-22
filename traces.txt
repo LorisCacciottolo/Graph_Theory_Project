@@ -1,0 +1,2109 @@
+╔══════════════════════════════════════════════╗
+║     Floyd-Warshall Shortest Path Program     ║
+╚══════════════════════════════════════════════╝
+
+Available graphs:
+    0 — real_example.txt
+    1 — graph1.txt
+    2 — graph2.txt
+    3 — graph3.txt
+    4 — graph4.txt
+    5 — graph5.txt
+    6 — graph6.txt
+    7 — graph7.txt
+    8 — graph8.txt
+    9 — graph9.txt
+   10 — graph10.txt
+   11 — graph11.txt
+   12 — graph12.txt
+   13 — graph13.txt
+
+Choose graph number: 
+Loaded : graph1.txt
+Vertices: 4   |   Arcs: 5
+
+Initial weight matrix
+              0     1     2     3
+         ------------------------
+     0 |       0     1     5   INF
+     1 |     INF     0     3     5
+     2 |     INF   INF     0     2
+     3 |     INF   INF   INF     0
+
+============================================================
+  Floyd-Warshall execution
+============================================================
+
+L(0)  [initial weight matrix]
+              0     1     2     3
+         ------------------------
+     0 |       0     1     5   INF
+     1 |     INF     0     3     5
+     2 |     INF   INF     0     2
+     3 |     INF   INF   INF     0
+
+P(0)  [initial predecessors]
+              0     1     2     3
+         ------------------------
+     0 |       -     0     0     -
+     1 |       -     -     1     1
+     2 |       -     -     -     2
+     3 |       -     -     -     -
+
+L(1)  [after pivot vertex 0]
+              0     1     2     3
+         ------------------------
+     0 |       0     1     5   INF
+     1 |     INF     0     3     5
+     2 |     INF   INF     0     2
+     3 |     INF   INF   INF     0
+
+P(1)  [after pivot vertex 0]
+              0     1     2     3
+         ------------------------
+     0 |       -     0     0     -
+     1 |       -     -     1     1
+     2 |       -     -     -     2
+     3 |       -     -     -     -
+
+L(2)  [after pivot vertex 1]
+              0     1     2     3
+         ------------------------
+     0 |       0     1     4     6
+     1 |     INF     0     3     5
+     2 |     INF   INF     0     2
+     3 |     INF   INF   INF     0
+
+P(2)  [after pivot vertex 1]
+              0     1     2     3
+         ------------------------
+     0 |       -     0     1     1
+     1 |       -     -     1     1
+     2 |       -     -     -     2
+     3 |       -     -     -     -
+
+L(3)  [after pivot vertex 2]
+              0     1     2     3
+         ------------------------
+     0 |       0     1     4     6
+     1 |     INF     0     3     5
+     2 |     INF   INF     0     2
+     3 |     INF   INF   INF     0
+
+P(3)  [after pivot vertex 2]
+              0     1     2     3
+         ------------------------
+     0 |       -     0     1     1
+     1 |       -     -     1     1
+     2 |       -     -     -     2
+     3 |       -     -     -     -
+
+L(4)  [after pivot vertex 3]
+              0     1     2     3
+         ------------------------
+     0 |       0     1     4     6
+     1 |     INF     0     3     5
+     2 |     INF   INF     0     2
+     3 |     INF   INF   INF     0
+
+P(4)  [after pivot vertex 3]
+              0     1     2     3
+         ------------------------
+     0 |       -     0     1     1
+     1 |       -     -     1     1
+     2 |       -     -     -     2
+     3 |       -     -     -     -
+
+============================================================
+  RESULT: No absorbing circuit detected.
+============================================================
+
+L*  [final shortest-path distances]
+              0     1     2     3
+         ------------------------
+     0 |       0     1     4     6
+     1 |     INF     0     3     5
+     2 |     INF   INF     0     2
+     3 |     INF   INF   INF     0
+
+P*  [final predecessor matrix]
+              0     1     2     3
+         ------------------------
+     0 |       -     0     1     1
+     1 |       -     -     1     1
+     2 |       -     -     -     2
+     3 |       -     -     -     -
+
+Find a shortest path? (y/n):   Starting vertex:   Ending vertex:     Path:     0 -> 1 -> 2
+  Distance: 4
+
+Find a shortest path? (y/n): 
+Process another graph? (y/n): 
+Available graphs:
+    0 — real_example.txt
+    1 — graph1.txt
+    2 — graph2.txt
+    3 — graph3.txt
+    4 — graph4.txt
+    5 — graph5.txt
+    6 — graph6.txt
+    7 — graph7.txt
+    8 — graph8.txt
+    9 — graph9.txt
+   10 — graph10.txt
+   11 — graph11.txt
+   12 — graph12.txt
+   13 — graph13.txt
+
+Choose graph number: 
+Loaded : graph2.txt
+Vertices: 4   |   Arcs: 5
+
+Initial weight matrix
+              0     1     2     3
+         ------------------------
+     0 |       0     1     5   INF
+     1 |     INF     0    -3     5
+     2 |     INF   INF     0     2
+     3 |     INF   INF   INF     0
+
+============================================================
+  Floyd-Warshall execution
+============================================================
+
+L(0)  [initial weight matrix]
+              0     1     2     3
+         ------------------------
+     0 |       0     1     5   INF
+     1 |     INF     0    -3     5
+     2 |     INF   INF     0     2
+     3 |     INF   INF   INF     0
+
+P(0)  [initial predecessors]
+              0     1     2     3
+         ------------------------
+     0 |       -     0     0     -
+     1 |       -     -     1     1
+     2 |       -     -     -     2
+     3 |       -     -     -     -
+
+L(1)  [after pivot vertex 0]
+              0     1     2     3
+         ------------------------
+     0 |       0     1     5   INF
+     1 |     INF     0    -3     5
+     2 |     INF   INF     0     2
+     3 |     INF   INF   INF     0
+
+P(1)  [after pivot vertex 0]
+              0     1     2     3
+         ------------------------
+     0 |       -     0     0     -
+     1 |       -     -     1     1
+     2 |       -     -     -     2
+     3 |       -     -     -     -
+
+L(2)  [after pivot vertex 1]
+              0     1     2     3
+         ------------------------
+     0 |       0     1    -2     6
+     1 |     INF     0    -3     5
+     2 |     INF   INF     0     2
+     3 |     INF   INF   INF     0
+
+P(2)  [after pivot vertex 1]
+              0     1     2     3
+         ------------------------
+     0 |       -     0     1     1
+     1 |       -     -     1     1
+     2 |       -     -     -     2
+     3 |       -     -     -     -
+
+L(3)  [after pivot vertex 2]
+              0     1     2     3
+         ------------------------
+     0 |       0     1    -2     0
+     1 |     INF     0    -3    -1
+     2 |     INF   INF     0     2
+     3 |     INF   INF   INF     0
+
+P(3)  [after pivot vertex 2]
+              0     1     2     3
+         ------------------------
+     0 |       -     0     1     2
+     1 |       -     -     1     2
+     2 |       -     -     -     2
+     3 |       -     -     -     -
+
+L(4)  [after pivot vertex 3]
+              0     1     2     3
+         ------------------------
+     0 |       0     1    -2     0
+     1 |     INF     0    -3    -1
+     2 |     INF   INF     0     2
+     3 |     INF   INF   INF     0
+
+P(4)  [after pivot vertex 3]
+              0     1     2     3
+         ------------------------
+     0 |       -     0     1     2
+     1 |       -     -     1     2
+     2 |       -     -     -     2
+     3 |       -     -     -     -
+
+============================================================
+  RESULT: No absorbing circuit detected.
+============================================================
+
+L*  [final shortest-path distances]
+              0     1     2     3
+         ------------------------
+     0 |       0     1    -2     0
+     1 |     INF     0    -3    -1
+     2 |     INF   INF     0     2
+     3 |     INF   INF   INF     0
+
+P*  [final predecessor matrix]
+              0     1     2     3
+         ------------------------
+     0 |       -     0     1     2
+     1 |       -     -     1     2
+     2 |       -     -     -     2
+     3 |       -     -     -     -
+
+Find a shortest path? (y/n):   Starting vertex:   Ending vertex:     Path:     0 -> 1 -> 2
+  Distance: -2
+
+Find a shortest path? (y/n): 
+Process another graph? (y/n): 
+Available graphs:
+    0 — real_example.txt
+    1 — graph1.txt
+    2 — graph2.txt
+    3 — graph3.txt
+    4 — graph4.txt
+    5 — graph5.txt
+    6 — graph6.txt
+    7 — graph7.txt
+    8 — graph8.txt
+    9 — graph9.txt
+   10 — graph10.txt
+   11 — graph11.txt
+   12 — graph12.txt
+   13 — graph13.txt
+
+Choose graph number: 
+Loaded : graph3.txt
+Vertices: 4   |   Arcs: 6
+
+Initial weight matrix
+              0     1     2     3
+         ------------------------
+     0 |       0     1    -5   INF
+     1 |     INF     0    -3     2
+     2 |     INF     4     0     2
+     3 |     INF   INF   INF     0
+
+============================================================
+  Floyd-Warshall execution
+============================================================
+
+L(0)  [initial weight matrix]
+              0     1     2     3
+         ------------------------
+     0 |       0     1    -5   INF
+     1 |     INF     0    -3     2
+     2 |     INF     4     0     2
+     3 |     INF   INF   INF     0
+
+P(0)  [initial predecessors]
+              0     1     2     3
+         ------------------------
+     0 |       -     0     0     -
+     1 |       -     -     1     1
+     2 |       -     2     -     2
+     3 |       -     -     -     -
+
+L(1)  [after pivot vertex 0]
+              0     1     2     3
+         ------------------------
+     0 |       0     1    -5   INF
+     1 |     INF     0    -3     2
+     2 |     INF     4     0     2
+     3 |     INF   INF   INF     0
+
+P(1)  [after pivot vertex 0]
+              0     1     2     3
+         ------------------------
+     0 |       -     0     0     -
+     1 |       -     -     1     1
+     2 |       -     2     -     2
+     3 |       -     -     -     -
+
+L(2)  [after pivot vertex 1]
+              0     1     2     3
+         ------------------------
+     0 |       0     1    -5     3
+     1 |     INF     0    -3     2
+     2 |     INF     4     0     2
+     3 |     INF   INF   INF     0
+
+P(2)  [after pivot vertex 1]
+              0     1     2     3
+         ------------------------
+     0 |       -     0     0     1
+     1 |       -     -     1     1
+     2 |       -     2     -     2
+     3 |       -     -     -     -
+
+L(3)  [after pivot vertex 2]
+              0     1     2     3
+         ------------------------
+     0 |       0    -1    -5    -3
+     1 |     INF     0    -3    -1
+     2 |     INF     4     0     2
+     3 |     INF   INF   INF     0
+
+P(3)  [after pivot vertex 2]
+              0     1     2     3
+         ------------------------
+     0 |       -     2     0     2
+     1 |       -     -     1     2
+     2 |       -     2     -     2
+     3 |       -     -     -     -
+
+L(4)  [after pivot vertex 3]
+              0     1     2     3
+         ------------------------
+     0 |       0    -1    -5    -3
+     1 |     INF     0    -3    -1
+     2 |     INF     4     0     2
+     3 |     INF   INF   INF     0
+
+P(4)  [after pivot vertex 3]
+              0     1     2     3
+         ------------------------
+     0 |       -     2     0     2
+     1 |       -     -     1     2
+     2 |       -     2     -     2
+     3 |       -     -     -     -
+
+============================================================
+  RESULT: No absorbing circuit detected.
+============================================================
+
+L*  [final shortest-path distances]
+              0     1     2     3
+         ------------------------
+     0 |       0    -1    -5    -3
+     1 |     INF     0    -3    -1
+     2 |     INF     4     0     2
+     3 |     INF   INF   INF     0
+
+P*  [final predecessor matrix]
+              0     1     2     3
+         ------------------------
+     0 |       -     2     0     2
+     1 |       -     -     1     2
+     2 |       -     2     -     2
+     3 |       -     -     -     -
+
+Find a shortest path? (y/n):   Starting vertex:   Ending vertex:     Path:     0 -> 2
+  Distance: -5
+
+Find a shortest path? (y/n): 
+Process another graph? (y/n): 
+Available graphs:
+    0 — real_example.txt
+    1 — graph1.txt
+    2 — graph2.txt
+    3 — graph3.txt
+    4 — graph4.txt
+    5 — graph5.txt
+    6 — graph6.txt
+    7 — graph7.txt
+    8 — graph8.txt
+    9 — graph9.txt
+   10 — graph10.txt
+   11 — graph11.txt
+   12 — graph12.txt
+   13 — graph13.txt
+
+Choose graph number: 
+Loaded : graph4.txt
+Vertices: 4   |   Arcs: 6
+
+Initial weight matrix
+              0     1     2     3
+         ------------------------
+     0 |       0     1    -5   INF
+     1 |     INF     0    -3     2
+     2 |     INF    -1     0     2
+     3 |     INF   INF   INF     0
+
+============================================================
+  Floyd-Warshall execution
+============================================================
+
+L(0)  [initial weight matrix]
+              0     1     2     3
+         ------------------------
+     0 |       0     1    -5   INF
+     1 |     INF     0    -3     2
+     2 |     INF    -1     0     2
+     3 |     INF   INF   INF     0
+
+P(0)  [initial predecessors]
+              0     1     2     3
+         ------------------------
+     0 |       -     0     0     -
+     1 |       -     -     1     1
+     2 |       -     2     -     2
+     3 |       -     -     -     -
+
+L(1)  [after pivot vertex 0]
+              0     1     2     3
+         ------------------------
+     0 |       0     1    -5   INF
+     1 |     INF     0    -3     2
+     2 |     INF    -1     0     2
+     3 |     INF   INF   INF     0
+
+P(1)  [after pivot vertex 0]
+              0     1     2     3
+         ------------------------
+     0 |       -     0     0     -
+     1 |       -     -     1     1
+     2 |       -     2     -     2
+     3 |       -     -     -     -
+
+L(2)  [after pivot vertex 1]
+              0     1     2     3
+         ------------------------
+     0 |       0     1    -5     3
+     1 |     INF     0    -3     2
+     2 |     INF    -1    -4     1
+     3 |     INF   INF   INF     0
+
+P(2)  [after pivot vertex 1]
+              0     1     2     3
+         ------------------------
+     0 |       -     0     0     1
+     1 |       -     -     1     1
+     2 |       -     2     1     1
+     3 |       -     -     -     -
+
+L(3)  [after pivot vertex 2]
+              0     1     2     3
+         ------------------------
+     0 |       0    -6    -9    -8
+     1 |     INF    -4    -7    -6
+     2 |     INF    -5    -8    -7
+     3 |     INF   INF   INF     0
+
+P(3)  [after pivot vertex 2]
+              0     1     2     3
+         ------------------------
+     0 |       -     2     1     1
+     1 |       -     2     1     1
+     2 |       -     2     1     1
+     3 |       -     -     -     -
+
+L(4)  [after pivot vertex 3]
+              0     1     2     3
+         ------------------------
+     0 |       0    -6    -9    -8
+     1 |     INF    -4    -7    -6
+     2 |     INF    -5    -8    -7
+     3 |     INF   INF   INF     0
+
+P(4)  [after pivot vertex 3]
+              0     1     2     3
+         ------------------------
+     0 |       -     2     1     1
+     1 |       -     2     1     1
+     2 |       -     2     1     1
+     3 |       -     -     -     -
+
+============================================================
+  RESULT: The graph contains at least one absorbing circuit
+          (negative cycle detected — shortest paths undefined).
+============================================================
+
+Process another graph? (y/n): 
+Available graphs:
+    0 — real_example.txt
+    1 — graph1.txt
+    2 — graph2.txt
+    3 — graph3.txt
+    4 — graph4.txt
+    5 — graph5.txt
+    6 — graph6.txt
+    7 — graph7.txt
+    8 — graph8.txt
+    9 — graph9.txt
+   10 — graph10.txt
+   11 — graph11.txt
+   12 — graph12.txt
+   13 — graph13.txt
+
+Choose graph number: 
+Loaded : graph5.txt
+Vertices: 4   |   Arcs: 8
+
+Initial weight matrix
+              0     1     2     3
+         ------------------------
+     0 |       0     1    -5   INF
+     1 |     INF     0    -3     2
+     2 |       6     4     0     2
+     3 |     INF   INF     2     0
+
+============================================================
+  Floyd-Warshall execution
+============================================================
+
+L(0)  [initial weight matrix]
+              0     1     2     3
+         ------------------------
+     0 |       0     1    -5   INF
+     1 |     INF     0    -3     2
+     2 |       6     4     0     2
+     3 |     INF   INF     2     0
+
+P(0)  [initial predecessors]
+              0     1     2     3
+         ------------------------
+     0 |       -     0     0     -
+     1 |       -     -     1     1
+     2 |       2     2     -     2
+     3 |       -     -     3     -
+
+L(1)  [after pivot vertex 0]
+              0     1     2     3
+         ------------------------
+     0 |       0     1    -5   INF
+     1 |     INF     0    -3     2
+     2 |       6     4     0     2
+     3 |     INF   INF     2     0
+
+P(1)  [after pivot vertex 0]
+              0     1     2     3
+         ------------------------
+     0 |       -     0     0     -
+     1 |       -     -     1     1
+     2 |       2     2     -     2
+     3 |       -     -     3     -
+
+L(2)  [after pivot vertex 1]
+              0     1     2     3
+         ------------------------
+     0 |       0     1    -5     3
+     1 |     INF     0    -3     2
+     2 |       6     4     0     2
+     3 |     INF   INF     2     0
+
+P(2)  [after pivot vertex 1]
+              0     1     2     3
+         ------------------------
+     0 |       -     0     0     1
+     1 |       -     -     1     1
+     2 |       2     2     -     2
+     3 |       -     -     3     -
+
+L(3)  [after pivot vertex 2]
+              0     1     2     3
+         ------------------------
+     0 |       0    -1    -5    -3
+     1 |       3     0    -3    -1
+     2 |       6     4     0     2
+     3 |       8     6     2     0
+
+P(3)  [after pivot vertex 2]
+              0     1     2     3
+         ------------------------
+     0 |       -     2     0     2
+     1 |       2     -     1     2
+     2 |       2     2     -     2
+     3 |       2     2     3     -
+
+L(4)  [after pivot vertex 3]
+              0     1     2     3
+         ------------------------
+     0 |       0    -1    -5    -3
+     1 |       3     0    -3    -1
+     2 |       6     4     0     2
+     3 |       8     6     2     0
+
+P(4)  [after pivot vertex 3]
+              0     1     2     3
+         ------------------------
+     0 |       -     2     0     2
+     1 |       2     -     1     2
+     2 |       2     2     -     2
+     3 |       2     2     3     -
+
+============================================================
+  RESULT: No absorbing circuit detected.
+============================================================
+
+L*  [final shortest-path distances]
+              0     1     2     3
+         ------------------------
+     0 |       0    -1    -5    -3
+     1 |       3     0    -3    -1
+     2 |       6     4     0     2
+     3 |       8     6     2     0
+
+P*  [final predecessor matrix]
+              0     1     2     3
+         ------------------------
+     0 |       -     2     0     2
+     1 |       2     -     1     2
+     2 |       2     2     -     2
+     3 |       2     2     3     -
+
+Find a shortest path? (y/n):   Starting vertex:   Ending vertex:     Path:     0 -> 2 -> 3
+  Distance: -3
+
+Find a shortest path? (y/n): 
+Process another graph? (y/n): 
+Available graphs:
+    0 — real_example.txt
+    1 — graph1.txt
+    2 — graph2.txt
+    3 — graph3.txt
+    4 — graph4.txt
+    5 — graph5.txt
+    6 — graph6.txt
+    7 — graph7.txt
+    8 — graph8.txt
+    9 — graph9.txt
+   10 — graph10.txt
+   11 — graph11.txt
+   12 — graph12.txt
+   13 — graph13.txt
+
+Choose graph number: 
+Loaded : graph6.txt
+Vertices: 4   |   Arcs: 9
+
+Initial weight matrix
+              0     1     2     3
+         ------------------------
+     0 |       0     1    -5   INF
+     1 |     INF    -1    -3     2
+     2 |       6     4     0     2
+     3 |     INF   INF     2     0
+
+============================================================
+  Floyd-Warshall execution
+============================================================
+
+L(0)  [initial weight matrix]
+              0     1     2     3
+         ------------------------
+     0 |       0     1    -5   INF
+     1 |     INF    -1    -3     2
+     2 |       6     4     0     2
+     3 |     INF   INF     2     0
+
+P(0)  [initial predecessors]
+              0     1     2     3
+         ------------------------
+     0 |       -     0     0     -
+     1 |       -     -     1     1
+     2 |       2     2     -     2
+     3 |       -     -     3     -
+
+L(1)  [after pivot vertex 0]
+              0     1     2     3
+         ------------------------
+     0 |       0     1    -5   INF
+     1 |     INF    -1    -3     2
+     2 |       6     4     0     2
+     3 |     INF   INF     2     0
+
+P(1)  [after pivot vertex 0]
+              0     1     2     3
+         ------------------------
+     0 |       -     0     0     -
+     1 |       -     -     1     1
+     2 |       2     2     -     2
+     3 |       -     -     3     -
+
+L(2)  [after pivot vertex 1]
+              0     1     2     3
+         ------------------------
+     0 |       0     0    -5     2
+     1 |     INF    -2    -5     0
+     2 |       6     2    -3     2
+     3 |     INF   INF     2     0
+
+P(2)  [after pivot vertex 1]
+              0     1     2     3
+         ------------------------
+     0 |       -     -     0     1
+     1 |       -     -     1     1
+     2 |       2     -     1     2
+     3 |       -     -     3     -
+
+L(3)  [after pivot vertex 2]
+              0     1     2     3
+         ------------------------
+     0 |       0    -3    -8    -6
+     1 |       1    -3    -8    -6
+     2 |       3    -1    -6    -4
+     3 |       5     1    -4    -8
+
+P(3)  [after pivot vertex 2]
+              0     1     2     3
+         ------------------------
+     0 |       -     -     1     2
+     1 |       2     -     1     2
+     2 |       2     -     1     2
+     3 |       2     -     1     2
+
+L(4)  [after pivot vertex 3]
+              0     1     2     3
+         ------------------------
+     0 |      -1    -5   -10   -14
+     1 |      -1    -5   -10   -14
+     2 |       1    -3    -8   -12
+     3 |      -3    -7   -12   -16
+
+P(4)  [after pivot vertex 3]
+              0     1     2     3
+         ------------------------
+     0 |       2     -     1     2
+     1 |       2     -     1     2
+     2 |       2     -     1     2
+     3 |       2     -     1     2
+
+============================================================
+  RESULT: The graph contains at least one absorbing circuit
+          (negative cycle detected — shortest paths undefined).
+============================================================
+
+Process another graph? (y/n): 
+Available graphs:
+    0 — real_example.txt
+    1 — graph1.txt
+    2 — graph2.txt
+    3 — graph3.txt
+    4 — graph4.txt
+    5 — graph5.txt
+    6 — graph6.txt
+    7 — graph7.txt
+    8 — graph8.txt
+    9 — graph9.txt
+   10 — graph10.txt
+   11 — graph11.txt
+   12 — graph12.txt
+   13 — graph13.txt
+
+Choose graph number: 
+Loaded : graph7.txt
+Vertices: 7   |   Arcs: 12
+
+Initial weight matrix
+              0     1     2     3     4     5     6
+         ------------------------------------------
+     0 |       0     2    -5   INF   INF   INF   INF
+     1 |     INF     0    -3     3   INF   INF   INF
+     2 |       7     4     0     3   INF   INF   INF
+     3 |     INF   INF     2     0   INF   INF   INF
+     4 |     INF   INF   INF   INF     0     5   INF
+     5 |     INF   INF   INF   INF     2     0    -2
+     6 |     INF   INF   INF   INF   INF   INF     0
+
+============================================================
+  Floyd-Warshall execution
+============================================================
+
+L(0)  [initial weight matrix]
+              0     1     2     3     4     5     6
+         ------------------------------------------
+     0 |       0     2    -5   INF   INF   INF   INF
+     1 |     INF     0    -3     3   INF   INF   INF
+     2 |       7     4     0     3   INF   INF   INF
+     3 |     INF   INF     2     0   INF   INF   INF
+     4 |     INF   INF   INF   INF     0     5   INF
+     5 |     INF   INF   INF   INF     2     0    -2
+     6 |     INF   INF   INF   INF   INF   INF     0
+
+P(0)  [initial predecessors]
+              0     1     2     3     4     5     6
+         ------------------------------------------
+     0 |       -     0     0     -     -     -     -
+     1 |       -     -     1     1     -     -     -
+     2 |       2     2     -     2     -     -     -
+     3 |       -     -     3     -     -     -     -
+     4 |       -     -     -     -     -     4     -
+     5 |       -     -     -     -     5     -     5
+     6 |       -     -     -     -     -     -     -
+
+L(1)  [after pivot vertex 0]
+              0     1     2     3     4     5     6
+         ------------------------------------------
+     0 |       0     2    -5   INF   INF   INF   INF
+     1 |     INF     0    -3     3   INF   INF   INF
+     2 |       7     4     0     3   INF   INF   INF
+     3 |     INF   INF     2     0   INF   INF   INF
+     4 |     INF   INF   INF   INF     0     5   INF
+     5 |     INF   INF   INF   INF     2     0    -2
+     6 |     INF   INF   INF   INF   INF   INF     0
+
+P(1)  [after pivot vertex 0]
+              0     1     2     3     4     5     6
+         ------------------------------------------
+     0 |       -     0     0     -     -     -     -
+     1 |       -     -     1     1     -     -     -
+     2 |       2     2     -     2     -     -     -
+     3 |       -     -     3     -     -     -     -
+     4 |       -     -     -     -     -     4     -
+     5 |       -     -     -     -     5     -     5
+     6 |       -     -     -     -     -     -     -
+
+L(2)  [after pivot vertex 1]
+              0     1     2     3     4     5     6
+         ------------------------------------------
+     0 |       0     2    -5     5   INF   INF   INF
+     1 |     INF     0    -3     3   INF   INF   INF
+     2 |       7     4     0     3   INF   INF   INF
+     3 |     INF   INF     2     0   INF   INF   INF
+     4 |     INF   INF   INF   INF     0     5   INF
+     5 |     INF   INF   INF   INF     2     0    -2
+     6 |     INF   INF   INF   INF   INF   INF     0
+
+P(2)  [after pivot vertex 1]
+              0     1     2     3     4     5     6
+         ------------------------------------------
+     0 |       -     0     0     1     -     -     -
+     1 |       -     -     1     1     -     -     -
+     2 |       2     2     -     2     -     -     -
+     3 |       -     -     3     -     -     -     -
+     4 |       -     -     -     -     -     4     -
+     5 |       -     -     -     -     5     -     5
+     6 |       -     -     -     -     -     -     -
+
+L(3)  [after pivot vertex 2]
+              0     1     2     3     4     5     6
+         ------------------------------------------
+     0 |       0    -1    -5    -2   INF   INF   INF
+     1 |       4     0    -3     0   INF   INF   INF
+     2 |       7     4     0     3   INF   INF   INF
+     3 |       9     6     2     0   INF   INF   INF
+     4 |     INF   INF   INF   INF     0     5   INF
+     5 |     INF   INF   INF   INF     2     0    -2
+     6 |     INF   INF   INF   INF   INF   INF     0
+
+P(3)  [after pivot vertex 2]
+              0     1     2     3     4     5     6
+         ------------------------------------------
+     0 |       -     2     0     2     -     -     -
+     1 |       2     -     1     2     -     -     -
+     2 |       2     2     -     2     -     -     -
+     3 |       2     2     3     -     -     -     -
+     4 |       -     -     -     -     -     4     -
+     5 |       -     -     -     -     5     -     5
+     6 |       -     -     -     -     -     -     -
+
+L(4)  [after pivot vertex 3]
+              0     1     2     3     4     5     6
+         ------------------------------------------
+     0 |       0    -1    -5    -2   INF   INF   INF
+     1 |       4     0    -3     0   INF   INF   INF
+     2 |       7     4     0     3   INF   INF   INF
+     3 |       9     6     2     0   INF   INF   INF
+     4 |     INF   INF   INF   INF     0     5   INF
+     5 |     INF   INF   INF   INF     2     0    -2
+     6 |     INF   INF   INF   INF   INF   INF     0
+
+P(4)  [after pivot vertex 3]
+              0     1     2     3     4     5     6
+         ------------------------------------------
+     0 |       -     2     0     2     -     -     -
+     1 |       2     -     1     2     -     -     -
+     2 |       2     2     -     2     -     -     -
+     3 |       2     2     3     -     -     -     -
+     4 |       -     -     -     -     -     4     -
+     5 |       -     -     -     -     5     -     5
+     6 |       -     -     -     -     -     -     -
+
+L(5)  [after pivot vertex 4]
+              0     1     2     3     4     5     6
+         ------------------------------------------
+     0 |       0    -1    -5    -2   INF   INF   INF
+     1 |       4     0    -3     0   INF   INF   INF
+     2 |       7     4     0     3   INF   INF   INF
+     3 |       9     6     2     0   INF   INF   INF
+     4 |     INF   INF   INF   INF     0     5   INF
+     5 |     INF   INF   INF   INF     2     0    -2
+     6 |     INF   INF   INF   INF   INF   INF     0
+
+P(5)  [after pivot vertex 4]
+              0     1     2     3     4     5     6
+         ------------------------------------------
+     0 |       -     2     0     2     -     -     -
+     1 |       2     -     1     2     -     -     -
+     2 |       2     2     -     2     -     -     -
+     3 |       2     2     3     -     -     -     -
+     4 |       -     -     -     -     -     4     -
+     5 |       -     -     -     -     5     -     5
+     6 |       -     -     -     -     -     -     -
+
+L(6)  [after pivot vertex 5]
+              0     1     2     3     4     5     6
+         ------------------------------------------
+     0 |       0    -1    -5    -2   INF   INF   INF
+     1 |       4     0    -3     0   INF   INF   INF
+     2 |       7     4     0     3   INF   INF   INF
+     3 |       9     6     2     0   INF   INF   INF
+     4 |     INF   INF   INF   INF     0     5     3
+     5 |     INF   INF   INF   INF     2     0    -2
+     6 |     INF   INF   INF   INF   INF   INF     0
+
+P(6)  [after pivot vertex 5]
+              0     1     2     3     4     5     6
+         ------------------------------------------
+     0 |       -     2     0     2     -     -     -
+     1 |       2     -     1     2     -     -     -
+     2 |       2     2     -     2     -     -     -
+     3 |       2     2     3     -     -     -     -
+     4 |       -     -     -     -     -     4     5
+     5 |       -     -     -     -     5     -     5
+     6 |       -     -     -     -     -     -     -
+
+L(7)  [after pivot vertex 6]
+              0     1     2     3     4     5     6
+         ------------------------------------------
+     0 |       0    -1    -5    -2   INF   INF   INF
+     1 |       4     0    -3     0   INF   INF   INF
+     2 |       7     4     0     3   INF   INF   INF
+     3 |       9     6     2     0   INF   INF   INF
+     4 |     INF   INF   INF   INF     0     5     3
+     5 |     INF   INF   INF   INF     2     0    -2
+     6 |     INF   INF   INF   INF   INF   INF     0
+
+P(7)  [after pivot vertex 6]
+              0     1     2     3     4     5     6
+         ------------------------------------------
+     0 |       -     2     0     2     -     -     -
+     1 |       2     -     1     2     -     -     -
+     2 |       2     2     -     2     -     -     -
+     3 |       2     2     3     -     -     -     -
+     4 |       -     -     -     -     -     4     5
+     5 |       -     -     -     -     5     -     5
+     6 |       -     -     -     -     -     -     -
+
+============================================================
+  RESULT: No absorbing circuit detected.
+============================================================
+
+L*  [final shortest-path distances]
+              0     1     2     3     4     5     6
+         ------------------------------------------
+     0 |       0    -1    -5    -2   INF   INF   INF
+     1 |       4     0    -3     0   INF   INF   INF
+     2 |       7     4     0     3   INF   INF   INF
+     3 |       9     6     2     0   INF   INF   INF
+     4 |     INF   INF   INF   INF     0     5     3
+     5 |     INF   INF   INF   INF     2     0    -2
+     6 |     INF   INF   INF   INF   INF   INF     0
+
+P*  [final predecessor matrix]
+              0     1     2     3     4     5     6
+         ------------------------------------------
+     0 |       -     2     0     2     -     -     -
+     1 |       2     -     1     2     -     -     -
+     2 |       2     2     -     2     -     -     -
+     3 |       2     2     3     -     -     -     -
+     4 |       -     -     -     -     -     4     5
+     5 |       -     -     -     -     5     -     5
+     6 |       -     -     -     -     -     -     -
+
+Find a shortest path? (y/n):   Starting vertex:   Ending vertex:     No path from 0 to 6.
+
+Find a shortest path? (y/n): 
+Process another graph? (y/n): 
+Available graphs:
+    0 — real_example.txt
+    1 — graph1.txt
+    2 — graph2.txt
+    3 — graph3.txt
+    4 — graph4.txt
+    5 — graph5.txt
+    6 — graph6.txt
+    7 — graph7.txt
+    8 — graph8.txt
+    9 — graph9.txt
+   10 — graph10.txt
+   11 — graph11.txt
+   12 — graph12.txt
+   13 — graph13.txt
+
+Choose graph number: 
+Loaded : graph8.txt
+Vertices: 5   |   Arcs: 7
+
+Initial weight matrix
+              0     1     2     3     4
+         ------------------------------
+     0 |       0     1     2     1   INF
+     1 |     INF     0   INF   INF     3
+     2 |     INF   INF     0     1     1
+     3 |     INF   INF   INF     0     4
+     4 |     INF   INF   INF   INF     0
+
+============================================================
+  Floyd-Warshall execution
+============================================================
+
+L(0)  [initial weight matrix]
+              0     1     2     3     4
+         ------------------------------
+     0 |       0     1     2     1   INF
+     1 |     INF     0   INF   INF     3
+     2 |     INF   INF     0     1     1
+     3 |     INF   INF   INF     0     4
+     4 |     INF   INF   INF   INF     0
+
+P(0)  [initial predecessors]
+              0     1     2     3     4
+         ------------------------------
+     0 |       -     0     0     0     -
+     1 |       -     -     -     -     1
+     2 |       -     -     -     2     2
+     3 |       -     -     -     -     3
+     4 |       -     -     -     -     -
+
+L(1)  [after pivot vertex 0]
+              0     1     2     3     4
+         ------------------------------
+     0 |       0     1     2     1   INF
+     1 |     INF     0   INF   INF     3
+     2 |     INF   INF     0     1     1
+     3 |     INF   INF   INF     0     4
+     4 |     INF   INF   INF   INF     0
+
+P(1)  [after pivot vertex 0]
+              0     1     2     3     4
+         ------------------------------
+     0 |       -     0     0     0     -
+     1 |       -     -     -     -     1
+     2 |       -     -     -     2     2
+     3 |       -     -     -     -     3
+     4 |       -     -     -     -     -
+
+L(2)  [after pivot vertex 1]
+              0     1     2     3     4
+         ------------------------------
+     0 |       0     1     2     1     4
+     1 |     INF     0   INF   INF     3
+     2 |     INF   INF     0     1     1
+     3 |     INF   INF   INF     0     4
+     4 |     INF   INF   INF   INF     0
+
+P(2)  [after pivot vertex 1]
+              0     1     2     3     4
+         ------------------------------
+     0 |       -     0     0     0     1
+     1 |       -     -     -     -     1
+     2 |       -     -     -     2     2
+     3 |       -     -     -     -     3
+     4 |       -     -     -     -     -
+
+L(3)  [after pivot vertex 2]
+              0     1     2     3     4
+         ------------------------------
+     0 |       0     1     2     1     3
+     1 |     INF     0   INF   INF     3
+     2 |     INF   INF     0     1     1
+     3 |     INF   INF   INF     0     4
+     4 |     INF   INF   INF   INF     0
+
+P(3)  [after pivot vertex 2]
+              0     1     2     3     4
+         ------------------------------
+     0 |       -     0     0     0     2
+     1 |       -     -     -     -     1
+     2 |       -     -     -     2     2
+     3 |       -     -     -     -     3
+     4 |       -     -     -     -     -
+
+L(4)  [after pivot vertex 3]
+              0     1     2     3     4
+         ------------------------------
+     0 |       0     1     2     1     3
+     1 |     INF     0   INF   INF     3
+     2 |     INF   INF     0     1     1
+     3 |     INF   INF   INF     0     4
+     4 |     INF   INF   INF   INF     0
+
+P(4)  [after pivot vertex 3]
+              0     1     2     3     4
+         ------------------------------
+     0 |       -     0     0     0     2
+     1 |       -     -     -     -     1
+     2 |       -     -     -     2     2
+     3 |       -     -     -     -     3
+     4 |       -     -     -     -     -
+
+L(5)  [after pivot vertex 4]
+              0     1     2     3     4
+         ------------------------------
+     0 |       0     1     2     1     3
+     1 |     INF     0   INF   INF     3
+     2 |     INF   INF     0     1     1
+     3 |     INF   INF   INF     0     4
+     4 |     INF   INF   INF   INF     0
+
+P(5)  [after pivot vertex 4]
+              0     1     2     3     4
+         ------------------------------
+     0 |       -     0     0     0     2
+     1 |       -     -     -     -     1
+     2 |       -     -     -     2     2
+     3 |       -     -     -     -     3
+     4 |       -     -     -     -     -
+
+============================================================
+  RESULT: No absorbing circuit detected.
+============================================================
+
+L*  [final shortest-path distances]
+              0     1     2     3     4
+         ------------------------------
+     0 |       0     1     2     1     3
+     1 |     INF     0   INF   INF     3
+     2 |     INF   INF     0     1     1
+     3 |     INF   INF   INF     0     4
+     4 |     INF   INF   INF   INF     0
+
+P*  [final predecessor matrix]
+              0     1     2     3     4
+         ------------------------------
+     0 |       -     0     0     0     2
+     1 |       -     -     -     -     1
+     2 |       -     -     -     2     2
+     3 |       -     -     -     -     3
+     4 |       -     -     -     -     -
+
+Find a shortest path? (y/n):   Starting vertex:   Ending vertex:     Path:     0 -> 3
+  Distance: 1
+
+Find a shortest path? (y/n): 
+Process another graph? (y/n): 
+Available graphs:
+    0 — real_example.txt
+    1 — graph1.txt
+    2 — graph2.txt
+    3 — graph3.txt
+    4 — graph4.txt
+    5 — graph5.txt
+    6 — graph6.txt
+    7 — graph7.txt
+    8 — graph8.txt
+    9 — graph9.txt
+   10 — graph10.txt
+   11 — graph11.txt
+   12 — graph12.txt
+   13 — graph13.txt
+
+Choose graph number: 
+Loaded : graph9.txt
+Vertices: 5   |   Arcs: 7
+
+Initial weight matrix
+              0     1     2     3     4
+         ------------------------------
+     0 |       0     1     2     1   INF
+     1 |     INF     0   INF   INF   INF
+     2 |     INF   INF     0    -2     1
+     3 |     INF   INF   INF     0     4
+     4 |     INF     3   INF   INF     0
+
+============================================================
+  Floyd-Warshall execution
+============================================================
+
+L(0)  [initial weight matrix]
+              0     1     2     3     4
+         ------------------------------
+     0 |       0     1     2     1   INF
+     1 |     INF     0   INF   INF   INF
+     2 |     INF   INF     0    -2     1
+     3 |     INF   INF   INF     0     4
+     4 |     INF     3   INF   INF     0
+
+P(0)  [initial predecessors]
+              0     1     2     3     4
+         ------------------------------
+     0 |       -     0     0     0     -
+     1 |       -     -     -     -     -
+     2 |       -     -     -     2     2
+     3 |       -     -     -     -     3
+     4 |       -     4     -     -     -
+
+L(1)  [after pivot vertex 0]
+              0     1     2     3     4
+         ------------------------------
+     0 |       0     1     2     1   INF
+     1 |     INF     0   INF   INF   INF
+     2 |     INF   INF     0    -2     1
+     3 |     INF   INF   INF     0     4
+     4 |     INF     3   INF   INF     0
+
+P(1)  [after pivot vertex 0]
+              0     1     2     3     4
+         ------------------------------
+     0 |       -     0     0     0     -
+     1 |       -     -     -     -     -
+     2 |       -     -     -     2     2
+     3 |       -     -     -     -     3
+     4 |       -     4     -     -     -
+
+L(2)  [after pivot vertex 1]
+              0     1     2     3     4
+         ------------------------------
+     0 |       0     1     2     1   INF
+     1 |     INF     0   INF   INF   INF
+     2 |     INF   INF     0    -2     1
+     3 |     INF   INF   INF     0     4
+     4 |     INF     3   INF   INF     0
+
+P(2)  [after pivot vertex 1]
+              0     1     2     3     4
+         ------------------------------
+     0 |       -     0     0     0     -
+     1 |       -     -     -     -     -
+     2 |       -     -     -     2     2
+     3 |       -     -     -     -     3
+     4 |       -     4     -     -     -
+
+L(3)  [after pivot vertex 2]
+              0     1     2     3     4
+         ------------------------------
+     0 |       0     1     2     0     3
+     1 |     INF     0   INF   INF   INF
+     2 |     INF   INF     0    -2     1
+     3 |     INF   INF   INF     0     4
+     4 |     INF     3   INF   INF     0
+
+P(3)  [after pivot vertex 2]
+              0     1     2     3     4
+         ------------------------------
+     0 |       -     0     0     2     2
+     1 |       -     -     -     -     -
+     2 |       -     -     -     2     2
+     3 |       -     -     -     -     3
+     4 |       -     4     -     -     -
+
+L(4)  [after pivot vertex 3]
+              0     1     2     3     4
+         ------------------------------
+     0 |       0     1     2     0     3
+     1 |     INF     0   INF   INF   INF
+     2 |     INF   INF     0    -2     1
+     3 |     INF   INF   INF     0     4
+     4 |     INF     3   INF   INF     0
+
+P(4)  [after pivot vertex 3]
+              0     1     2     3     4
+         ------------------------------
+     0 |       -     0     0     2     2
+     1 |       -     -     -     -     -
+     2 |       -     -     -     2     2
+     3 |       -     -     -     -     3
+     4 |       -     4     -     -     -
+
+L(5)  [after pivot vertex 4]
+              0     1     2     3     4
+         ------------------------------
+     0 |       0     1     2     0     3
+     1 |     INF     0   INF   INF   INF
+     2 |     INF     4     0    -2     1
+     3 |     INF     7   INF     0     4
+     4 |     INF     3   INF   INF     0
+
+P(5)  [after pivot vertex 4]
+              0     1     2     3     4
+         ------------------------------
+     0 |       -     0     0     2     2
+     1 |       -     -     -     -     -
+     2 |       -     4     -     2     2
+     3 |       -     4     -     -     3
+     4 |       -     4     -     -     -
+
+============================================================
+  RESULT: No absorbing circuit detected.
+============================================================
+
+L*  [final shortest-path distances]
+              0     1     2     3     4
+         ------------------------------
+     0 |       0     1     2     0     3
+     1 |     INF     0   INF   INF   INF
+     2 |     INF     4     0    -2     1
+     3 |     INF     7   INF     0     4
+     4 |     INF     3   INF   INF     0
+
+P*  [final predecessor matrix]
+              0     1     2     3     4
+         ------------------------------
+     0 |       -     0     0     2     2
+     1 |       -     -     -     -     -
+     2 |       -     4     -     2     2
+     3 |       -     4     -     -     3
+     4 |       -     4     -     -     -
+
+Find a shortest path? (y/n):   Starting vertex:   Ending vertex:     Path:     0 -> 2 -> 4
+  Distance: 3
+
+Find a shortest path? (y/n): 
+Process another graph? (y/n): 
+Available graphs:
+    0 — real_example.txt
+    1 — graph1.txt
+    2 — graph2.txt
+    3 — graph3.txt
+    4 — graph4.txt
+    5 — graph5.txt
+    6 — graph6.txt
+    7 — graph7.txt
+    8 — graph8.txt
+    9 — graph9.txt
+   10 — graph10.txt
+   11 — graph11.txt
+   12 — graph12.txt
+   13 — graph13.txt
+
+Choose graph number: 
+Loaded : graph10.txt
+Vertices: 5   |   Arcs: 7
+
+Initial weight matrix
+              0     1     2     3     4
+         ------------------------------
+     0 |       0     1     2     1   INF
+     1 |     INF     0   INF   INF   INF
+     2 |     INF   INF     0    -2   INF
+     3 |     INF   INF   INF     0     4
+     4 |     INF     3    -7   INF     0
+
+============================================================
+  Floyd-Warshall execution
+============================================================
+
+L(0)  [initial weight matrix]
+              0     1     2     3     4
+         ------------------------------
+     0 |       0     1     2     1   INF
+     1 |     INF     0   INF   INF   INF
+     2 |     INF   INF     0    -2   INF
+     3 |     INF   INF   INF     0     4
+     4 |     INF     3    -7   INF     0
+
+P(0)  [initial predecessors]
+              0     1     2     3     4
+         ------------------------------
+     0 |       -     0     0     0     -
+     1 |       -     -     -     -     -
+     2 |       -     -     -     2     -
+     3 |       -     -     -     -     3
+     4 |       -     4     4     -     -
+
+L(1)  [after pivot vertex 0]
+              0     1     2     3     4
+         ------------------------------
+     0 |       0     1     2     1   INF
+     1 |     INF     0   INF   INF   INF
+     2 |     INF   INF     0    -2   INF
+     3 |     INF   INF   INF     0     4
+     4 |     INF     3    -7   INF     0
+
+P(1)  [after pivot vertex 0]
+              0     1     2     3     4
+         ------------------------------
+     0 |       -     0     0     0     -
+     1 |       -     -     -     -     -
+     2 |       -     -     -     2     -
+     3 |       -     -     -     -     3
+     4 |       -     4     4     -     -
+
+L(2)  [after pivot vertex 1]
+              0     1     2     3     4
+         ------------------------------
+     0 |       0     1     2     1   INF
+     1 |     INF     0   INF   INF   INF
+     2 |     INF   INF     0    -2   INF
+     3 |     INF   INF   INF     0     4
+     4 |     INF     3    -7   INF     0
+
+P(2)  [after pivot vertex 1]
+              0     1     2     3     4
+         ------------------------------
+     0 |       -     0     0     0     -
+     1 |       -     -     -     -     -
+     2 |       -     -     -     2     -
+     3 |       -     -     -     -     3
+     4 |       -     4     4     -     -
+
+L(3)  [after pivot vertex 2]
+              0     1     2     3     4
+         ------------------------------
+     0 |       0     1     2     0   INF
+     1 |     INF     0   INF   INF   INF
+     2 |     INF   INF     0    -2   INF
+     3 |     INF   INF   INF     0     4
+     4 |     INF     3    -7    -9     0
+
+P(3)  [after pivot vertex 2]
+              0     1     2     3     4
+         ------------------------------
+     0 |       -     0     0     2     -
+     1 |       -     -     -     -     -
+     2 |       -     -     -     2     -
+     3 |       -     -     -     -     3
+     4 |       -     4     4     2     -
+
+L(4)  [after pivot vertex 3]
+              0     1     2     3     4
+         ------------------------------
+     0 |       0     1     2     0     4
+     1 |     INF     0   INF   INF   INF
+     2 |     INF   INF     0    -2     2
+     3 |     INF   INF   INF     0     4
+     4 |     INF     3    -7    -9    -5
+
+P(4)  [after pivot vertex 3]
+              0     1     2     3     4
+         ------------------------------
+     0 |       -     0     0     2     3
+     1 |       -     -     -     -     -
+     2 |       -     -     -     2     3
+     3 |       -     -     -     -     3
+     4 |       -     4     4     2     3
+
+L(5)  [after pivot vertex 4]
+              0     1     2     3     4
+         ------------------------------
+     0 |       0     1    -3    -5    -1
+     1 |     INF     0   INF   INF   INF
+     2 |     INF     5    -5    -7    -3
+     3 |     INF     7    -3    -5    -1
+     4 |     INF    -2   -12   -14   -10
+
+P(5)  [after pivot vertex 4]
+              0     1     2     3     4
+         ------------------------------
+     0 |       -     0     4     2     3
+     1 |       -     -     -     -     -
+     2 |       -     4     4     2     3
+     3 |       -     4     4     2     3
+     4 |       -     4     4     2     3
+
+============================================================
+  RESULT: The graph contains at least one absorbing circuit
+          (negative cycle detected — shortest paths undefined).
+============================================================
+
+Process another graph? (y/n): 
+Available graphs:
+    0 — real_example.txt
+    1 — graph1.txt
+    2 — graph2.txt
+    3 — graph3.txt
+    4 — graph4.txt
+    5 — graph5.txt
+    6 — graph6.txt
+    7 — graph7.txt
+    8 — graph8.txt
+    9 — graph9.txt
+   10 — graph10.txt
+   11 — graph11.txt
+   12 — graph12.txt
+   13 — graph13.txt
+
+Choose graph number: 
+Loaded : graph11.txt
+Vertices: 5   |   Arcs: 8
+
+Initial weight matrix
+              0     1     2     3     4
+         ------------------------------
+     0 |       0   INF     2     1   INF
+     1 |       1     0   INF   INF   INF
+     2 |     INF   INF     0    -2   INF
+     3 |     INF   INF   INF     0     4
+     4 |     INF     3    -1   INF     0
+
+============================================================
+  Floyd-Warshall execution
+============================================================
+
+L(0)  [initial weight matrix]
+              0     1     2     3     4
+         ------------------------------
+     0 |       0   INF     2     1   INF
+     1 |       1     0   INF   INF   INF
+     2 |     INF   INF     0    -2   INF
+     3 |     INF   INF   INF     0     4
+     4 |     INF     3    -1   INF     0
+
+P(0)  [initial predecessors]
+              0     1     2     3     4
+         ------------------------------
+     0 |       -     -     0     0     -
+     1 |       1     -     -     -     -
+     2 |       -     -     -     2     -
+     3 |       -     -     -     -     3
+     4 |       -     4     4     -     -
+
+L(1)  [after pivot vertex 0]
+              0     1     2     3     4
+         ------------------------------
+     0 |       0   INF     2     1   INF
+     1 |       1     0     3     2   INF
+     2 |     INF   INF     0    -2   INF
+     3 |     INF   INF   INF     0     4
+     4 |     INF     3    -1   INF     0
+
+P(1)  [after pivot vertex 0]
+              0     1     2     3     4
+         ------------------------------
+     0 |       -     -     0     0     -
+     1 |       1     -     0     0     -
+     2 |       -     -     -     2     -
+     3 |       -     -     -     -     3
+     4 |       -     4     4     -     -
+
+L(2)  [after pivot vertex 1]
+              0     1     2     3     4
+         ------------------------------
+     0 |       0   INF     2     1   INF
+     1 |       1     0     3     2   INF
+     2 |     INF   INF     0    -2   INF
+     3 |     INF   INF   INF     0     4
+     4 |       4     3    -1     5     0
+
+P(2)  [after pivot vertex 1]
+              0     1     2     3     4
+         ------------------------------
+     0 |       -     -     0     0     -
+     1 |       1     -     0     0     -
+     2 |       -     -     -     2     -
+     3 |       -     -     -     -     3
+     4 |       1     4     4     0     -
+
+L(3)  [after pivot vertex 2]
+              0     1     2     3     4
+         ------------------------------
+     0 |       0   INF     2     0   INF
+     1 |       1     0     3     1   INF
+     2 |     INF   INF     0    -2   INF
+     3 |     INF   INF   INF     0     4
+     4 |       4     3    -1    -3     0
+
+P(3)  [after pivot vertex 2]
+              0     1     2     3     4
+         ------------------------------
+     0 |       -     -     0     2     -
+     1 |       1     -     0     2     -
+     2 |       -     -     -     2     -
+     3 |       -     -     -     -     3
+     4 |       1     4     4     2     -
+
+L(4)  [after pivot vertex 3]
+              0     1     2     3     4
+         ------------------------------
+     0 |       0   INF     2     0     4
+     1 |       1     0     3     1     5
+     2 |     INF   INF     0    -2     2
+     3 |     INF   INF   INF     0     4
+     4 |       4     3    -1    -3     0
+
+P(4)  [after pivot vertex 3]
+              0     1     2     3     4
+         ------------------------------
+     0 |       -     -     0     2     3
+     1 |       1     -     0     2     3
+     2 |       -     -     -     2     3
+     3 |       -     -     -     -     3
+     4 |       1     4     4     2     -
+
+L(5)  [after pivot vertex 4]
+              0     1     2     3     4
+         ------------------------------
+     0 |       0     7     2     0     4
+     1 |       1     0     3     1     5
+     2 |       6     5     0    -2     2
+     3 |       8     7     3     0     4
+     4 |       4     3    -1    -3     0
+
+P(5)  [after pivot vertex 4]
+              0     1     2     3     4
+         ------------------------------
+     0 |       -     4     0     2     3
+     1 |       1     -     0     2     3
+     2 |       1     4     -     2     3
+     3 |       1     4     4     -     3
+     4 |       1     4     4     2     -
+
+============================================================
+  RESULT: No absorbing circuit detected.
+============================================================
+
+L*  [final shortest-path distances]
+              0     1     2     3     4
+         ------------------------------
+     0 |       0     7     2     0     4
+     1 |       1     0     3     1     5
+     2 |       6     5     0    -2     2
+     3 |       8     7     3     0     4
+     4 |       4     3    -1    -3     0
+
+P*  [final predecessor matrix]
+              0     1     2     3     4
+         ------------------------------
+     0 |       -     4     0     2     3
+     1 |       1     -     0     2     3
+     2 |       1     4     -     2     3
+     3 |       1     4     4     -     3
+     4 |       1     4     4     2     -
+
+Find a shortest path? (y/n):   Starting vertex:   Ending vertex:     Path:     0 -> 2
+  Distance: 2
+
+Find a shortest path? (y/n): 
+Process another graph? (y/n): 
+Available graphs:
+    0 — real_example.txt
+    1 — graph1.txt
+    2 — graph2.txt
+    3 — graph3.txt
+    4 — graph4.txt
+    5 — graph5.txt
+    6 — graph6.txt
+    7 — graph7.txt
+    8 — graph8.txt
+    9 — graph9.txt
+   10 — graph10.txt
+   11 — graph11.txt
+   12 — graph12.txt
+   13 — graph13.txt
+
+Choose graph number: 
+Loaded : graph12.txt
+Vertices: 5   |   Arcs: 9
+
+Initial weight matrix
+              0     1     2     3     4
+         ------------------------------
+     0 |       0   INF     2     1   INF
+     1 |       1     0   INF   INF     1
+     2 |     INF   INF     0    -2   INF
+     3 |     INF   INF     7     0     4
+     4 |     INF     3    -1   INF     0
+
+============================================================
+  Floyd-Warshall execution
+============================================================
+
+L(0)  [initial weight matrix]
+              0     1     2     3     4
+         ------------------------------
+     0 |       0   INF     2     1   INF
+     1 |       1     0   INF   INF     1
+     2 |     INF   INF     0    -2   INF
+     3 |     INF   INF     7     0     4
+     4 |     INF     3    -1   INF     0
+
+P(0)  [initial predecessors]
+              0     1     2     3     4
+         ------------------------------
+     0 |       -     -     0     0     -
+     1 |       1     -     -     -     1
+     2 |       -     -     -     2     -
+     3 |       -     -     3     -     3
+     4 |       -     4     4     -     -
+
+L(1)  [after pivot vertex 0]
+              0     1     2     3     4
+         ------------------------------
+     0 |       0   INF     2     1   INF
+     1 |       1     0     3     2     1
+     2 |     INF   INF     0    -2   INF
+     3 |     INF   INF     7     0     4
+     4 |     INF     3    -1   INF     0
+
+P(1)  [after pivot vertex 0]
+              0     1     2     3     4
+         ------------------------------
+     0 |       -     -     0     0     -
+     1 |       1     -     0     0     1
+     2 |       -     -     -     2     -
+     3 |       -     -     3     -     3
+     4 |       -     4     4     -     -
+
+L(2)  [after pivot vertex 1]
+              0     1     2     3     4
+         ------------------------------
+     0 |       0   INF     2     1   INF
+     1 |       1     0     3     2     1
+     2 |     INF   INF     0    -2   INF
+     3 |     INF   INF     7     0     4
+     4 |       4     3    -1     5     0
+
+P(2)  [after pivot vertex 1]
+              0     1     2     3     4
+         ------------------------------
+     0 |       -     -     0     0     -
+     1 |       1     -     0     0     1
+     2 |       -     -     -     2     -
+     3 |       -     -     3     -     3
+     4 |       1     4     4     0     -
+
+L(3)  [after pivot vertex 2]
+              0     1     2     3     4
+         ------------------------------
+     0 |       0   INF     2     0   INF
+     1 |       1     0     3     1     1
+     2 |     INF   INF     0    -2   INF
+     3 |     INF   INF     7     0     4
+     4 |       4     3    -1    -3     0
+
+P(3)  [after pivot vertex 2]
+              0     1     2     3     4
+         ------------------------------
+     0 |       -     -     0     2     -
+     1 |       1     -     0     2     1
+     2 |       -     -     -     2     -
+     3 |       -     -     3     -     3
+     4 |       1     4     4     2     -
+
+L(4)  [after pivot vertex 3]
+              0     1     2     3     4
+         ------------------------------
+     0 |       0   INF     2     0     4
+     1 |       1     0     3     1     1
+     2 |     INF   INF     0    -2     2
+     3 |     INF   INF     7     0     4
+     4 |       4     3    -1    -3     0
+
+P(4)  [after pivot vertex 3]
+              0     1     2     3     4
+         ------------------------------
+     0 |       -     -     0     2     3
+     1 |       1     -     0     2     1
+     2 |       -     -     -     2     3
+     3 |       -     -     3     -     3
+     4 |       1     4     4     2     -
+
+L(5)  [after pivot vertex 4]
+              0     1     2     3     4
+         ------------------------------
+     0 |       0     7     2     0     4
+     1 |       1     0     0    -2     1
+     2 |       6     5     0    -2     2
+     3 |       8     7     3     0     4
+     4 |       4     3    -1    -3     0
+
+P(5)  [after pivot vertex 4]
+              0     1     2     3     4
+         ------------------------------
+     0 |       -     4     0     2     3
+     1 |       1     -     4     2     1
+     2 |       1     4     -     2     3
+     3 |       1     4     4     -     3
+     4 |       1     4     4     2     -
+
+============================================================
+  RESULT: No absorbing circuit detected.
+============================================================
+
+L*  [final shortest-path distances]
+              0     1     2     3     4
+         ------------------------------
+     0 |       0     7     2     0     4
+     1 |       1     0     0    -2     1
+     2 |       6     5     0    -2     2
+     3 |       8     7     3     0     4
+     4 |       4     3    -1    -3     0
+
+P*  [final predecessor matrix]
+              0     1     2     3     4
+         ------------------------------
+     0 |       -     4     0     2     3
+     1 |       1     -     4     2     1
+     2 |       1     4     -     2     3
+     3 |       1     4     4     -     3
+     4 |       1     4     4     2     -
+
+Find a shortest path? (y/n):   Starting vertex:   Ending vertex:     Path:     0 -> 2 -> 3
+  Distance: 0
+
+Find a shortest path? (y/n):   Starting vertex:   Ending vertex:     Path:     2 -> 3 -> 4
+  Distance: 2
+
+Find a shortest path? (y/n): 
+Process another graph? (y/n): 
+Available graphs:
+    0 — real_example.txt
+    1 — graph1.txt
+    2 — graph2.txt
+    3 — graph3.txt
+    4 — graph4.txt
+    5 — graph5.txt
+    6 — graph6.txt
+    7 — graph7.txt
+    8 — graph8.txt
+    9 — graph9.txt
+   10 — graph10.txt
+   11 — graph11.txt
+   12 — graph12.txt
+   13 — graph13.txt
+
+Choose graph number: 
+Loaded : graph13.txt
+Vertices: 8   |   Arcs: 12
+
+Initial weight matrix
+              0     1     2     3     4     5     6     7
+         ------------------------------------------------
+     0 |       0   INF     2     1   INF   INF   INF   INF
+     1 |       1     0   INF   INF     1   INF   INF   INF
+     2 |     INF   INF     0    -2   INF   INF   INF   INF
+     3 |     INF   INF     7     0     4   INF   INF   INF
+     4 |     INF     3    -1   INF     0   INF   INF   INF
+     5 |     INF   INF   INF   INF   INF     0     1   INF
+     6 |     INF   INF   INF   INF   INF    -2     0    -2
+     7 |     INF   INF   INF   INF   INF   INF   INF     0
+
+============================================================
+  Floyd-Warshall execution
+============================================================
+
+L(0)  [initial weight matrix]
+              0     1     2     3     4     5     6     7
+         ------------------------------------------------
+     0 |       0   INF     2     1   INF   INF   INF   INF
+     1 |       1     0   INF   INF     1   INF   INF   INF
+     2 |     INF   INF     0    -2   INF   INF   INF   INF
+     3 |     INF   INF     7     0     4   INF   INF   INF
+     4 |     INF     3    -1   INF     0   INF   INF   INF
+     5 |     INF   INF   INF   INF   INF     0     1   INF
+     6 |     INF   INF   INF   INF   INF    -2     0    -2
+     7 |     INF   INF   INF   INF   INF   INF   INF     0
+
+P(0)  [initial predecessors]
+              0     1     2     3     4     5     6     7
+         ------------------------------------------------
+     0 |       -     -     0     0     -     -     -     -
+     1 |       1     -     -     -     1     -     -     -
+     2 |       -     -     -     2     -     -     -     -
+     3 |       -     -     3     -     3     -     -     -
+     4 |       -     4     4     -     -     -     -     -
+     5 |       -     -     -     -     -     -     5     -
+     6 |       -     -     -     -     -     6     -     6
+     7 |       -     -     -     -     -     -     -     -
+
+L(1)  [after pivot vertex 0]
+              0     1     2     3     4     5     6     7
+         ------------------------------------------------
+     0 |       0   INF     2     1   INF   INF   INF   INF
+     1 |       1     0     3     2     1   INF   INF   INF
+     2 |     INF   INF     0    -2   INF   INF   INF   INF
+     3 |     INF   INF     7     0     4   INF   INF   INF
+     4 |     INF     3    -1   INF     0   INF   INF   INF
+     5 |     INF   INF   INF   INF   INF     0     1   INF
+     6 |     INF   INF   INF   INF   INF    -2     0    -2
+     7 |     INF   INF   INF   INF   INF   INF   INF     0
+
+P(1)  [after pivot vertex 0]
+              0     1     2     3     4     5     6     7
+         ------------------------------------------------
+     0 |       -     -     0     0     -     -     -     -
+     1 |       1     -     0     0     1     -     -     -
+     2 |       -     -     -     2     -     -     -     -
+     3 |       -     -     3     -     3     -     -     -
+     4 |       -     4     4     -     -     -     -     -
+     5 |       -     -     -     -     -     -     5     -
+     6 |       -     -     -     -     -     6     -     6
+     7 |       -     -     -     -     -     -     -     -
+
+L(2)  [after pivot vertex 1]
+              0     1     2     3     4     5     6     7
+         ------------------------------------------------
+     0 |       0   INF     2     1   INF   INF   INF   INF
+     1 |       1     0     3     2     1   INF   INF   INF
+     2 |     INF   INF     0    -2   INF   INF   INF   INF
+     3 |     INF   INF     7     0     4   INF   INF   INF
+     4 |       4     3    -1     5     0   INF   INF   INF
+     5 |     INF   INF   INF   INF   INF     0     1   INF
+     6 |     INF   INF   INF   INF   INF    -2     0    -2
+     7 |     INF   INF   INF   INF   INF   INF   INF     0
+
+P(2)  [after pivot vertex 1]
+              0     1     2     3     4     5     6     7
+         ------------------------------------------------
+     0 |       -     -     0     0     -     -     -     -
+     1 |       1     -     0     0     1     -     -     -
+     2 |       -     -     -     2     -     -     -     -
+     3 |       -     -     3     -     3     -     -     -
+     4 |       1     4     4     0     -     -     -     -
+     5 |       -     -     -     -     -     -     5     -
+     6 |       -     -     -     -     -     6     -     6
+     7 |       -     -     -     -     -     -     -     -
+
+L(3)  [after pivot vertex 2]
+              0     1     2     3     4     5     6     7
+         ------------------------------------------------
+     0 |       0   INF     2     0   INF   INF   INF   INF
+     1 |       1     0     3     1     1   INF   INF   INF
+     2 |     INF   INF     0    -2   INF   INF   INF   INF
+     3 |     INF   INF     7     0     4   INF   INF   INF
+     4 |       4     3    -1    -3     0   INF   INF   INF
+     5 |     INF   INF   INF   INF   INF     0     1   INF
+     6 |     INF   INF   INF   INF   INF    -2     0    -2
+     7 |     INF   INF   INF   INF   INF   INF   INF     0
+
+P(3)  [after pivot vertex 2]
+              0     1     2     3     4     5     6     7
+         ------------------------------------------------
+     0 |       -     -     0     2     -     -     -     -
+     1 |       1     -     0     2     1     -     -     -
+     2 |       -     -     -     2     -     -     -     -
+     3 |       -     -     3     -     3     -     -     -
+     4 |       1     4     4     2     -     -     -     -
+     5 |       -     -     -     -     -     -     5     -
+     6 |       -     -     -     -     -     6     -     6
+     7 |       -     -     -     -     -     -     -     -
+
+L(4)  [after pivot vertex 3]
+              0     1     2     3     4     5     6     7
+         ------------------------------------------------
+     0 |       0   INF     2     0     4   INF   INF   INF
+     1 |       1     0     3     1     1   INF   INF   INF
+     2 |     INF   INF     0    -2     2   INF   INF   INF
+     3 |     INF   INF     7     0     4   INF   INF   INF
+     4 |       4     3    -1    -3     0   INF   INF   INF
+     5 |     INF   INF   INF   INF   INF     0     1   INF
+     6 |     INF   INF   INF   INF   INF    -2     0    -2
+     7 |     INF   INF   INF   INF   INF   INF   INF     0
+
+P(4)  [after pivot vertex 3]
+              0     1     2     3     4     5     6     7
+         ------------------------------------------------
+     0 |       -     -     0     2     3     -     -     -
+     1 |       1     -     0     2     1     -     -     -
+     2 |       -     -     -     2     3     -     -     -
+     3 |       -     -     3     -     3     -     -     -
+     4 |       1     4     4     2     -     -     -     -
+     5 |       -     -     -     -     -     -     5     -
+     6 |       -     -     -     -     -     6     -     6
+     7 |       -     -     -     -     -     -     -     -
+
+L(5)  [after pivot vertex 4]
+              0     1     2     3     4     5     6     7
+         ------------------------------------------------
+     0 |       0     7     2     0     4   INF   INF   INF
+     1 |       1     0     0    -2     1   INF   INF   INF
+     2 |       6     5     0    -2     2   INF   INF   INF
+     3 |       8     7     3     0     4   INF   INF   INF
+     4 |       4     3    -1    -3     0   INF   INF   INF
+     5 |     INF   INF   INF   INF   INF     0     1   INF
+     6 |     INF   INF   INF   INF   INF    -2     0    -2
+     7 |     INF   INF   INF   INF   INF   INF   INF     0
+
+P(5)  [after pivot vertex 4]
+              0     1     2     3     4     5     6     7
+         ------------------------------------------------
+     0 |       -     4     0     2     3     -     -     -
+     1 |       1     -     4     2     1     -     -     -
+     2 |       1     4     -     2     3     -     -     -
+     3 |       1     4     4     -     3     -     -     -
+     4 |       1     4     4     2     -     -     -     -
+     5 |       -     -     -     -     -     -     5     -
+     6 |       -     -     -     -     -     6     -     6
+     7 |       -     -     -     -     -     -     -     -
+
+L(6)  [after pivot vertex 5]
+              0     1     2     3     4     5     6     7
+         ------------------------------------------------
+     0 |       0     7     2     0     4   INF   INF   INF
+     1 |       1     0     0    -2     1   INF   INF   INF
+     2 |       6     5     0    -2     2   INF   INF   INF
+     3 |       8     7     3     0     4   INF   INF   INF
+     4 |       4     3    -1    -3     0   INF   INF   INF
+     5 |     INF   INF   INF   INF   INF     0     1   INF
+     6 |     INF   INF   INF   INF   INF    -2    -1    -2
+     7 |     INF   INF   INF   INF   INF   INF   INF     0
+
+P(6)  [after pivot vertex 5]
+              0     1     2     3     4     5     6     7
+         ------------------------------------------------
+     0 |       -     4     0     2     3     -     -     -
+     1 |       1     -     4     2     1     -     -     -
+     2 |       1     4     -     2     3     -     -     -
+     3 |       1     4     4     -     3     -     -     -
+     4 |       1     4     4     2     -     -     -     -
+     5 |       -     -     -     -     -     -     5     -
+     6 |       -     -     -     -     -     6     5     6
+     7 |       -     -     -     -     -     -     -     -
+
+L(7)  [after pivot vertex 6]
+              0     1     2     3     4     5     6     7
+         ------------------------------------------------
+     0 |       0     7     2     0     4   INF   INF   INF
+     1 |       1     0     0    -2     1   INF   INF   INF
+     2 |       6     5     0    -2     2   INF   INF   INF
+     3 |       8     7     3     0     4   INF   INF   INF
+     4 |       4     3    -1    -3     0   INF   INF   INF
+     5 |     INF   INF   INF   INF   INF    -1     0    -2
+     6 |     INF   INF   INF   INF   INF    -3    -2    -4
+     7 |     INF   INF   INF   INF   INF   INF   INF     0
+
+P(7)  [after pivot vertex 6]
+              0     1     2     3     4     5     6     7
+         ------------------------------------------------
+     0 |       -     4     0     2     3     -     -     -
+     1 |       1     -     4     2     1     -     -     -
+     2 |       1     4     -     2     3     -     -     -
+     3 |       1     4     4     -     3     -     -     -
+     4 |       1     4     4     2     -     -     -     -
+     5 |       -     -     -     -     -     6     5     6
+     6 |       -     -     -     -     -     6     5     6
+     7 |       -     -     -     -     -     -     -     -
+
+L(8)  [after pivot vertex 7]
+              0     1     2     3     4     5     6     7
+         ------------------------------------------------
+     0 |       0     7     2     0     4   INF   INF   INF
+     1 |       1     0     0    -2     1   INF   INF   INF
+     2 |       6     5     0    -2     2   INF   INF   INF
+     3 |       8     7     3     0     4   INF   INF   INF
+     4 |       4     3    -1    -3     0   INF   INF   INF
+     5 |     INF   INF   INF   INF   INF    -1     0    -2
+     6 |     INF   INF   INF   INF   INF    -3    -2    -4
+     7 |     INF   INF   INF   INF   INF   INF   INF     0
+
+P(8)  [after pivot vertex 7]
+              0     1     2     3     4     5     6     7
+         ------------------------------------------------
+     0 |       -     4     0     2     3     -     -     -
+     1 |       1     -     4     2     1     -     -     -
+     2 |       1     4     -     2     3     -     -     -
+     3 |       1     4     4     -     3     -     -     -
+     4 |       1     4     4     2     -     -     -     -
+     5 |       -     -     -     -     -     6     5     6
+     6 |       -     -     -     -     -     6     5     6
+     7 |       -     -     -     -     -     -     -     -
+
+============================================================
+  RESULT: The graph contains at least one absorbing circuit
+          (negative cycle detected — shortest paths undefined).
+============================================================
+
+Process another graph? (y/n): 
