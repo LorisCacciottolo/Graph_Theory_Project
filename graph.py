@@ -99,37 +99,40 @@ def _cell_width(n):
 	return max(6, len(str(n - 1)) + 2)
 
 
-def display_matrix(matrix, title="Matrix"):
-	n = len(matrix)
-	cw = _cell_width(n)
-	label_w = cw
+def _display_table(rows, title):
+	# print a generic indexed square table from pre-formatted string cells
+	n = len(rows)  # number of rows and columns
+	cw = _cell_width(n)  # width of each data column
+	label_w = cw  # width of the row index label column
 
-	print(f"\n{title}")
-	header = " " * (label_w + 3) + "".join(f"{j:>{cw}}" for j in range(n))  # column header row
+	print(f"\n{title}")  # table title
+	header = " " * (label_w + 3) + "".join(f"{j:>{cw}}" for j in range(n))  # top header with column indices
 	print(header)
-	print(" " * (label_w + 3) + "-" * (cw * n))
-	for i, row in enumerate(matrix):
+	print(" " * (label_w + 3) + "-" * (cw * n))  # visual separator below header
+
+	# each printed line starts with row index i, then all cells in that row
+	for i, cells in enumerate(rows):
+		print(f"{i:>{label_w}} |  " + "".join(f"{c:>{cw}}" for c in cells))
+
+
+def display_matrix(matrix, title="Matrix"):
+	# convert numeric matrix values to printable cells then display
+	rows = []
+	for row in matrix:
 		cells = []
 		for val in row:
 			if val == INF:
 				cells.append("INF")  # show unreachable entries explicitly
 			else:
 				cells.append(str(int(val)))  # display finite distances as integers
-		print(f"{i:>{label_w}} |  " + "".join(f"{c:>{cw}}" for c in cells))
+		rows.append(cells)
+	_display_table(rows, title)
 
 
 def display_pred_matrix(P, title="Predecessors P"):
-	n = len(P)
-	cw = _cell_width(n)
-	label_w = cw
-
-	print(f"\n{title}")
-	header = " " * (label_w + 3) + "".join(f"{j:>{cw}}" for j in range(n))
-	print(header)
-	print(" " * (label_w + 3) + "-" * (cw * n))
-	for i, row in enumerate(P):
-		cells = ["-" if v is None else str(v) for v in row]  # '-' means no predecessor known
-		print(f"{i:>{label_w}} |  " + "".join(f"{c:>{cw}}" for c in cells))
+	# convert predecessor values to printable cells then display
+	rows = [["-" if v is None else str(v) for v in row] for row in P]  # '-' means no predecessor known
+	_display_table(rows, title)
 
 
 def floyd_warshall(matrix):
@@ -153,7 +156,7 @@ def floyd_warshall(matrix):
 	display_matrix(L, "L(0)  [initial weight matrix]")
 	display_pred_matrix(P, "P(0)  [initial predecessors]")
 
-	for k in range(n):  # main FW loop: try each vertex k as intermediate pivot
+	for k in range(n):  # main loop: try each vertex k as intermediate pivot
 		for i in range(n):
 			for j in range(n):
 				if L[i][k] != INF and L[k][j] != INF:  # combine only reachable subpaths

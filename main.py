@@ -1,9 +1,10 @@
 import os
 import sys
+import webbrowser
 
 
 class Tee:
-	"""Writes all output to both the terminal and a log file."""
+	# writes all output to both the terminal and a log file.
 	def __init__(self, filepath):
 		self._terminal = sys.stdout
 		self._log = open(filepath, "w", encoding="utf-8")
@@ -33,6 +34,16 @@ from graph import (
 	reconstruct_path,
 	INF,
 )
+
+
+REAL_EXAMPLE_FILE = "real_example.txt"
+REAL_EXAMPLE_HTML = "real_example_graph.html"
+
+
+def show_real_example_popup():
+	"""Open the school-network graph in the default web browser."""
+	html_path = os.path.join(BASE_DIR, REAL_EXAMPLE_HTML)
+	webbrowser.open(f"file://{html_path}")
 
 
 def ask_path(L, P, n):
@@ -72,7 +83,7 @@ def ask_path(L, P, n):
 
 
 def process_graph(files):
-	"""Load one graph chosen by the user, run Floyd-Warshall, handle results."""
+	# load one graph chosen by the user, run Floyd-Warshall, handle results
 
 	# step 1 and 2: choose and load the graph
 	print("\nAvailable graphs:")
@@ -98,6 +109,13 @@ def process_graph(files):
 
 	print(f"\nLoaded : {files[idx]}")
 	print(f"Vertices: {n}   |   Arcs: {len(arcs)}")
+
+	# show interactive popup for the real-world example
+	if files[idx] == REAL_EXAMPLE_FILE:
+		answer = input("\nOpen the graph visualisation in your browser? (y/n): ").strip().lower()
+		if answer == "y":
+			show_real_example_popup()
+			print("  Graph opened in browser.")
 
 	# step 4: display the graph as a weight matrix
 	matrix = build_matrix(n, arcs)
@@ -142,7 +160,6 @@ def main():
 
 		again = input("\nProcess another graph? (y/n): ").strip().lower()
 		if again != "y":
-			print("Goodbye.")
 			break
 
 

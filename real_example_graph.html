@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>School Network – Interactive Graph</title>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #1a1d2e; font-family: "Segoe UI", Arial, sans-serif; overflow: hidden; height: 100vh; display: flex; }
+
+#graph-area { flex: 1; position: relative; }
+svg { width: 100%; height: 100vh; display: block; }
+
+/* ── Side Panel ── */
+#panel {
+  width: 280px; min-width: 280px; background: #12152280;
+  backdrop-filter: blur(12px);
+  border-left: 1px solid #ffffff18;
+  display: flex; flex-direction: column; gap: 0;
+  overflow-y: auto; z-index: 10;
+}
+.panel-section { padding: 14px 16px; border-bottom: 1px solid #ffffff12; }
+.panel-title { font-size: 17px; font-weight: 800; color: #fff; letter-spacing: 0.3px; }
+.panel-subtitle { font-size: 11px; color: #aaa; margin-top: 3px; }
+.section-label { font-size: 11px; font-weight: 700; color: #8899bb; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+
+/* Zone buttons */
+.zone-btn {
+  display: block; width: 100%; padding: 7px 10px; margin-bottom: 5px;
+  border: 1.5px solid transparent; border-radius: 8px;
+  font-size: 12px; font-weight: 600; cursor: pointer;
+  text-align: left; transition: all .15s; background: #ffffff0c;
+  color: #ddd;
+}
+.zone-btn:hover { background: #ffffff18; }
+.zone-btn.active { color: #fff; }
+.zone-btn .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 7px; }
+
+/* Path finder */
+select {
+  width: 100%; padding: 7px 9px; background: #1e2235; border: 1px solid #334;
+  color: #ddd; border-radius: 7px; font-size: 12px; margin-bottom: 8px;
+  outline: none; cursor: pointer;
+}
+select:focus { border-color: #5599ff; }
+#find-btn {
+  width: 100%; padding: 8px; background: linear-gradient(135deg, #3b6fff, #7b3fff);
+  border: none; border-radius: 8px; color: #fff; font-size: 13px;
+  font-weight: 700; cursor: pointer; transition: opacity .15s;
+}
+#find-btn:hover { opacity: .85; }
+#path-result {
+  margin-top: 10px; padding: 10px; background: #ffffff08;
+  border-radius: 8px; font-size: 12px; color: #ccd; line-height: 1.7;
+  min-height: 36px; border: 1px solid #ffffff10;
+}
+.path-step { display: inline-block; background: #3b6fff33; color: #88bbff;
+  border-radius: 4px; padding: 1px 6px; margin: 1px; font-weight: 700; }
+.path-arrow { color: #8888aa; }
+
+/* Node info */
+#node-info { font-size: 12px; color: #ccd; line-height: 1.8; }
+#node-info .ni-id { font-size: 22px; font-weight: 900; margin-bottom: 4px; }
+#node-info .ni-name { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+#node-info .ni-row { display: flex; justify-content: space-between; color: #aaa; }
+#node-info .ni-val { color: #ddd; font-weight: 600; }
+
+/* Zoom controls */
+.zoom-controls { display: flex; gap: 6px; }
+.zc-btn {
+  flex: 1; padding: 6px; background: #ffffff0c; border: 1px solid #ffffff18;
+  border-radius: 7px; color: #ccc; font-size: 14px; cursor: pointer;
+  transition: background .15s;
+}
+.zc-btn:hover { background: #ffffff1e; }
+
+/* Reset button */
+#reset-btn {
+  width: 100%; padding: 7px; background: #ffffff08;
+  border: 1px solid #ffffff18; border-radius: 8px; color: #aaa;
+  font-size: 12px; cursor: pointer; transition: all .15s;
+}
+#reset-btn:hover { background: #ff444422; border-color: #ff4444; color: #ff8888; }
+
+/* Tooltip */
+#tooltip {
+  position: fixed; pointer-events: none; z-index: 100;
+  background: #0d1020ee; border: 1px solid #334466;
+  border-radius: 8px; padding: 8px 12px; font-size: 12px;
+  color: #cdd; opacity: 0; transition: opacity .12s; max-width: 180px;
+}
+#tooltip .tt-id { font-size: 16px; font-weight: 900; margin-bottom: 2px; }
+#tooltip .tt-zone { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+
+/* Graph elements */
+.zone-bg { opacity: 0.18; transition: opacity .25s; }
+.zone-bg.dimmed { opacity: 0.04; }
+.zone-bg.highlighted { opacity: 0.32; }
+.zone-label-el { transition: opacity .25s; }
+
+.edge { transition: stroke .2s, stroke-width .2s, opacity .2s; }
+.edge.dimmed { opacity: 0.08; }
+.edge.highlighted { stroke-width: 3.5 !important; opacity: 1 !important; }
+.edge.path-edge { stroke-width: 4 !important; opacity: 1 !important; stroke: #ffc700 !important; }
+
+.weight-label { transition: opacity .2s; }
+.weight-label.dimmed { opacity: 0.08; }
+.weight-label.path-label { opacity: 1 !important; }
+
+.node-g { cursor: pointer; }
+.node-g circle { transition: r .15s, stroke-width .15s, filter .2s; }
+.node-g.dimmed circle { opacity: 0.2; }
+.node-g.dimmed text { opacity: 0.2; }
+.node-g.selected circle { stroke-width: 4 !important; filter: drop-shadow(0 0 8px currentColor); }
+.node-g.path-node circle { stroke: #ffc700 !important; stroke-width: 3.5 !important; filter: drop-shadow(0 0 10px #ffc700); }
+
+/* Legend */
+.legend-item { display: flex; align-items: center; gap: 8px; font-size: 11px; color: #aaa; margin-bottom: 5px; }
+.legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<div id="graph-area">
+  <svg id="g"></svg>
+</div>
+
+<div id="panel">
+  <div class="panel-section">
+    <div class="panel-title">School Network</div>
+    <div class="panel-subtitle">Floyd-Warshall · 15 nodes · 32 arcs</div>
+  </div>
+
+  <div class="panel-section">
+    <div class="section-label">Zoom</div>
+    <div class="zoom-controls">
+      <button class="zc-btn" id="zoom-in">＋</button>
+      <button class="zc-btn" id="zoom-reset">⌂</button>
+      <button class="zc-btn" id="zoom-out">－</button>
+    </div>
+  </div>
+
+  <div class="panel-section">
+    <div class="section-label">Focus Zone</div>
+    <div id="zone-buttons"></div>
+  </div>
+
+  <div class="panel-section">
+    <div class="section-label">Path Finder (Floyd-Warshall)</div>
+    <select id="src-sel"><option value="">From…</option></select>
+    <select id="dst-sel"><option value="">To…</option></select>
+    <button id="find-btn">Find Shortest Path</button>
+    <div id="path-result">Select two nodes and click Find.</div>
+  </div>
+
+  <div class="panel-section">
+    <div class="section-label">Selected Node</div>
+    <div id="node-info"><span style="color:#556">Click any node to inspect it.</span></div>
+  </div>
+
+  <div class="panel-section">
+    <button id="reset-btn">✕ Clear Highlights</button>
+  </div>
+
+  <div class="panel-section">
+    <div class="section-label">Legend</div>
+    <div id="legend"></div>
+    <div style="margin-top:10px;font-size:10px;color:#556;line-height:1.6">
+      — solid arrow: directed edge<br>
+      — curved pair: bidirectional<br>
+      — weight = latency (ms)
+    </div>
+  </div>
+</div>
+
+<div id="tooltip"></div>
+
+<script>
+// ── DATA ─────────────────────────────────────────────────────────────────────
+const ZONES = [
+  { id:"internet", label:"Internet Zone",  fill:"#4a90d9", stroke:"#4a90c4", nodes:[0,1,2],        x:30,  y:30,  w:228, h:340 },
+  { id:"core",     label:"Core Network",   fill:"#c8a800", stroke:"#c8a800", nodes:[3],             x:400, y:188, w:212, h:132 },
+  { id:"class",    label:"Classrooms",     fill:"#3a8a3a", stroke:"#3a8a3a", nodes:[4,5,6],         x:778, y:30,  w:234, h:340 },
+  { id:"admin",    label:"Administration", fill:"#c05030", stroke:"#c05030", nodes:[7,14],          x:778, y:412, w:234, h:190 },
+  { id:"library",  label:"Library & WiFi", fill:"#8040a0", stroke:"#8040a0", nodes:[8,13],          x:778, y:648, w:234, h:212 },
+  { id:"servers",  label:"Servers",        fill:"#b03030", stroke:"#b03030", nodes:[9,10,11,12],    x:390, y:490, w:212, h:500 },
+];
+
+const nodeList = [
+  {id:0,  label:"Box Internet",   zone:"internet", x:144, y:90  },
+  {id:1,  label:"Firewall",       zone:"internet", x:144, y:200 },
+  {id:2,  label:"Main Router",    zone:"internet", x:144, y:310 },
+  {id:3,  label:"Core Switch",    zone:"core",     x:506, y:252 },
+  {id:4,  label:"Rm 1",           zone:"class",    x:895, y:90  },
+  {id:5,  label:"Rm 2",           zone:"class",    x:895, y:200 },
+  {id:6,  label:"Rm 3",           zone:"class",    x:895, y:310 },
+  {id:7,  label:"Admin Switch",   zone:"admin",    x:895, y:460 },
+  {id:14, label:"Printer",        zone:"admin",    x:895, y:555 },
+  {id:8,  label:"Library Switch", zone:"library",  x:895, y:700 },
+  {id:13, label:"WiFi Amphi",     zone:"library",  x:895, y:800 },
+  {id:9,  label:"Web Server",     zone:"servers",  x:496, y:548 },
+  {id:10, label:"File Server",    zone:"servers",  x:496, y:660 },
+  {id:11, label:"DNS Server",     zone:"servers",  x:496, y:772 },
+  {id:12, label:"Moodle",         zone:"servers",  x:496, y:884 },
+];
+
+const linkList = [
+  {s:0, t:1, w:2},{s:1, t:0, w:5},
+  {s:1, t:2, w:3},{s:2, t:1, w:4},
+  {s:2, t:3, w:1},{s:3, t:2, w:2},
+  {s:3, t:4, w:2},{s:4, t:3, w:3},
+  {s:3, t:5, w:3},{s:5, t:3, w:4},
+  {s:3, t:6, w:3},{s:6, t:3, w:4},
+  {s:3, t:7, w:4},{s:7, t:3, w:5},
+  {s:3, t:8, w:5},{s:8, t:3, w:6},
+  {s:4, t:10,w:4},
+  {s:5, t:10,w:5},
+  {s:6, t:10,w:6},
+  {s:7, t:9, w:3},
+  {s:7, t:14,w:2},
+  {s:8, t:9, w:4},
+  {s:8, t:13,w:3},
+  {s:9, t:11,w:1},{s:11,t:9, w:1},
+  {s:9, t:12,w:2},{s:12,t:9, w:3},
+  {s:10,t:9, w:2},
+  {s:13,t:3, w:4},
+  {s:13,t:9, w:5},
+  {s:3, t:11,w:3},
+  {s:3, t:12,w:4},
+];
+
+// ── LOOKUPS ──────────────────────────────────────────────────────────────────
+const nodeById   = Object.fromEntries(nodeList.map(n => [n.id, n]));
+const zoneById   = Object.fromEntries(ZONES.map(z => [z.id, z]));
+const nodeZone   = n => ZONES.find(z => z.nodes.includes(n.id));
+const edgeSet    = new Set(linkList.map(l => `${l.s}-${l.t}`));
+const isBidir    = l => edgeSet.has(`${l.t}-${l.s}`);
+const NODE_R     = 24;
+
+// ── FLOYD-WARSHALL (precomputed on load) ─────────────────────────────────────
+const INF = Infinity;
+const IDS = nodeList.map(n => n.id);
+const IDX = Object.fromEntries(IDS.map((id,i) => [id,i]));
+const N   = IDS.length;
+
+// L[i][j] = shortest distance, P[i][j] = predecessor id (or null)
+const L = Array.from({length:N}, (_,i) => Array.from({length:N}, (_,j) => i===j ? 0 : INF));
+const P = Array.from({length:N}, () => Array(N).fill(null));
+
+linkList.forEach(l => {
+  const i = IDX[l.s], j = IDX[l.t];
+  if (l.w < L[i][j]) { L[i][j] = l.w; P[i][j] = l.s; }
+});
+
+for (let k=0; k<N; k++)
+  for (let i=0; i<N; i++)
+    for (let j=0; j<N; j++)
+      if (L[i][k] !== INF && L[k][j] !== INF && L[i][k]+L[k][j] < L[i][j]) {
+        L[i][j] = L[i][k] + L[k][j];
+        P[i][j] = P[k][j];
+      }
+
+function fwPath(srcId, dstId) {
+  const i=IDX[srcId], j=IDX[dstId];
+  if (L[i][j] === INF) return null;
+  const path=[dstId]; let cur=dstId;
+  while (cur !== srcId) { cur = P[IDX[srcId]][IDX[cur]]; if (cur==null) return null; path.unshift(cur); }
+  return path;
+}
+function fwDist(srcId, dstId) { return L[IDX[srcId]][IDX[dstId]]; }
+
+// ── SVG SETUP ────────────────────────────────────────────────────────────────
+const svg = d3.select("#g");
+const root = svg.append("g").attr("id","root");
+
+// zoom
+const zoom = d3.zoom().scaleExtent([0.3, 4])
+  .on("zoom", e => root.attr("transform", e.transform));
+svg.call(zoom).on("dblclick.zoom", null);
+
+function doZoom(factor) {
+  svg.transition().duration(300).call(zoom.scaleBy, factor);
+}
+function resetZoom(box) {
+  const vw = svg.node().clientWidth, vh = svg.node().clientHeight;
+  const bx = box || {x:0, y:0, w:1050, h:970};
+  const scale = Math.min(vw / bx.w, vh / bx.h) * 0.9;
+  const tx = vw/2 - (bx.x + bx.w/2)*scale;
+  const ty = vh/2 - (bx.y + bx.h/2)*scale;
+  svg.transition().duration(500)
+    .call(zoom.transform, d3.zoomIdentity.translate(tx, ty).scale(scale));
+}
+
+// ── ARROWHEAD MARKERS ─────────────────────────────────────────────────────────
+const defs = svg.append("defs");
+[
+  {id:"arr-normal", color:"#8899aa"},
+  {id:"arr-dim",    color:"#334"},
+  {id:"arr-hi",     color:"#5588ff"},
+  {id:"arr-path",   color:"#ffc700"},
+].forEach(m => {
+  defs.append("marker").attr("id",m.id)
+    .attr("viewBox","0 0 10 10").attr("refX","8").attr("refY","5")
+    .attr("markerWidth","5").attr("markerHeight","5").attr("orient","auto")
+    .append("path").attr("d","M1 2 L8 5 L1 8")
+    .attr("fill","none").attr("stroke",m.color)
+    .attr("stroke-width","2").attr("stroke-linecap","round").attr("stroke-linejoin","round");
+});
+
+// ── ZONE BACKGROUNDS ─────────────────────────────────────────────────────────
+const zoneG = root.append("g").attr("id","zones");
+ZONES.forEach(z => {
+  const g = zoneG.append("g").attr("data-zone", z.id);
+  g.append("rect").attr("class","zone-bg")
+    .attr("x",z.x).attr("y",z.y).attr("width",z.w).attr("height",z.h).attr("rx",14)
+    .attr("fill",z.fill).attr("stroke",z.stroke).attr("stroke-width","1.5");
+  g.append("text").attr("class","zone-label-el")
+    .attr("x", z.x + z.w/2).attr("y", z.y + 18)
+    .attr("text-anchor","middle").attr("font-size","12")
+    .attr("font-weight","700").attr("fill",z.stroke)
+    .text(z.label);
+});
+
+// ── EDGE PATH HELPERS ─────────────────────────────────────────────────────────
+function edgePath(l) {
+  const s = nodeById[l.s], d = nodeById[l.t];
+  const dx=d.x-s.x, dy=d.y-s.y, dist=Math.sqrt(dx*dx+dy*dy)||1;
+  const ux=dx/dist, uy=dy/dist, px=-uy, py=ux;
+  const x1=s.x+ux*NODE_R, y1=s.y+uy*NODE_R, x2=d.x-ux*NODE_R, y2=d.y-uy*NODE_R;
+  if (isBidir(l)) {
+    const C=30, cx=(x1+x2)/2+px*C, cy=(y1+y2)/2+py*C;
+    return `M${x1},${y1} Q${cx},${cy} ${x2},${y2}`;
+  }
+  return `M${x1},${y1} L${x2},${y2}`;
+}
+function edgeMid(l) {
+  const s = nodeById[l.s], d = nodeById[l.t];
+  const dx=d.x-s.x, dy=d.y-s.y, dist=Math.sqrt(dx*dx+dy*dy)||1;
+  const ux=dx/dist, uy=dy/dist, px=-uy, py=ux;
+  const x1=s.x+ux*NODE_R, y1=s.y+uy*NODE_R, x2=d.x-ux*NODE_R, y2=d.y-uy*NODE_R;
+  if (isBidir(l)) {
+    const C=30, cx=(x1+x2)/2+px*C, cy=(y1+y2)/2+py*C;
+    return {x:0.25*(x1+x2)+0.5*cx, y:0.25*(y1+y2)+0.5*cy};
+  }
+  return {x:(x1+x2)/2, y:(y1+y2)/2};
+}
+
+// ── DRAW EDGES ───────────────────────────────────────────────────────────────
+const edgeG = root.append("g").attr("id","edges");
+const labelG = root.append("g").attr("id","edge-labels");
+
+linkList.forEach((l,i) => {
+  l._id = i;
+  const mid = edgeMid(l);
+  edgeG.append("path")
+    .datum(l).attr("class","edge")
+    .attr("data-edge",i)
+    .attr("d", edgePath(l))
+    .attr("fill","none").attr("stroke","#8899aa").attr("stroke-width","1.8")
+    .attr("marker-end","url(#arr-normal)");
+
+  const wg = labelG.append("g").datum(l).attr("class","weight-label").attr("data-edge",i);
+  wg.append("rect").attr("x",mid.x-10).attr("y",mid.y-8).attr("width",20).attr("height",16)
+    .attr("rx","3").attr("fill","#1a1d2e").attr("opacity","0.85");
+  wg.append("text").attr("x",mid.x).attr("y",mid.y+1)
+    .attr("text-anchor","middle").attr("dominant-baseline","middle")
+    .attr("font-size","10").attr("font-weight","700").attr("fill","#cc8800")
+    .text(l.w+"ms");
+});
+
+// ── DRAW NODES ────────────────────────────────────────────────────────────────
+const nodeG = root.append("g").attr("id","nodes");
+
+nodeList.forEach(n => {
+  const z = nodeZone(n);
+  const g = nodeG.append("g").attr("class","node-g")
+    .attr("data-node",n.id).attr("data-zone",n.zone);
+
+  g.append("circle").attr("cx",n.x).attr("cy",n.y).attr("r",NODE_R)
+    .attr("fill",z.fill).attr("fill-opacity","0.85")
+    .attr("stroke","#ffffff33").attr("stroke-width","2");
+
+  g.append("text").attr("x",n.x).attr("y",n.y-4)
+    .attr("text-anchor","middle").attr("dominant-baseline","middle")
+    .attr("font-size","11").attr("font-weight","900").attr("fill","white")
+    .attr("pointer-events","none").text(n.id);
+
+  const shortLabel = n.label.length > 10 ? n.label.split(" ").map(w=>w.slice(0,5)).join(" ") : n.label;
+  g.append("text").attr("x",n.x).attr("y",n.y+9)
+    .attr("text-anchor","middle").attr("dominant-baseline","middle")
+    .attr("font-size","8").attr("font-weight","600").attr("fill","rgba(255,255,255,0.75)")
+    .attr("pointer-events","none").text(shortLabel);
+
+  // events
+  g.on("click", (event) => { event.stopPropagation(); onNodeClick(n); })
+   .on("mouseenter", (event) => showTooltip(event, n))
+   .on("mousemove",  (event) => moveTooltip(event))
+   .on("mouseleave", hideTooltip);
+});
+
+// click on SVG background → clear
+svg.on("click", () => clearAll());
+
+// ── TOOLTIP ───────────────────────────────────────────────────────────────────
+const tooltip = document.getElementById("tooltip");
+function showTooltip(event, n) {
+  const z = nodeZone(n);
+  const outEdges = linkList.filter(l=>l.s===n.id).length;
+  const inEdges  = linkList.filter(l=>l.t===n.id).length;
+  tooltip.innerHTML = `
+    <div class="tt-id" style="color:${z.fill}">${n.id}</div>
+    <div class="tt-zone" style="color:${z.fill}aa">${z.label}</div>
+    <div style="color:#ccd;font-weight:600">${n.label}</div>
+    <div style="color:#778;margin-top:4px;font-size:11px">▲ ${outEdges} out  ▼ ${inEdges} in</div>`;
+  tooltip.style.opacity = "1";
+  moveTooltip(event);
+}
+function moveTooltip(event) {
+  tooltip.style.left = (event.clientX + 14) + "px";
+  tooltip.style.top  = (event.clientY - 10) + "px";
+}
+function hideTooltip() { tooltip.style.opacity = "0"; }
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+let activeZone = null, selectedNode = null, pathNodes = new Set(), pathEdges = new Set();
+
+function clearAll() {
+  activeZone = null; selectedNode = null; pathNodes.clear(); pathEdges.clear();
+  document.querySelectorAll(".zone-btn").forEach(b => b.classList.remove("active"));
+  d3.selectAll(".zone-bg").classed("dimmed", false).classed("highlighted", false);
+  d3.selectAll(".zone-label-el").classed("dimmed", false);
+  d3.selectAll(".node-g").classed("dimmed",false).classed("selected",false).classed("path-node",false);
+  d3.selectAll(".edge").classed("dimmed",false).classed("highlighted",false).classed("path-edge",false)
+    .attr("stroke","#8899aa").attr("stroke-width","1.8").attr("marker-end","url(#arr-normal)").style("opacity",null);
+  d3.selectAll(".weight-label").classed("dimmed",false).classed("path-label",false).style("opacity",null);
+  document.getElementById("path-result").innerHTML = "Select two nodes and click Find.";
+  document.getElementById("node-info").innerHTML = '<span style="color:#556">Click any node to inspect it.</span>';
+  resetZoom();
+}
+
+// ── NODE CLICK ────────────────────────────────────────────────────────────────
+function onNodeClick(n) {
+  if (selectedNode === n.id) { clearAll(); return; }
+  selectedNode = n.id;
+  pathNodes.clear(); pathEdges.clear();
+
+  const connected = new Set();
+  const connEdges  = new Set();
+  linkList.forEach((l,i) => {
+    if (l.s === n.id || l.t === n.id) { connected.add(l.s); connected.add(l.t); connEdges.add(i); }
+  });
+
+  d3.selectAll(".node-g")
+    .classed("dimmed", nd => !connected.has(+nd3(nd)))
+    .classed("selected", nd => +nd3(nd) === n.id);
+
+  d3.selectAll(".edge").each(function(l) {
+    const isConn = connEdges.has(l._id);
+    d3.select(this)
+      .classed("dimmed", !isConn).classed("highlighted", isConn)
+      .attr("stroke", isConn ? "#5588ff" : "#334")
+      .attr("marker-end", isConn ? "url(#arr-hi)" : "url(#arr-dim)")
+      .attr("stroke-width", isConn ? "2.8" : "1.5");
+  });
+  d3.selectAll(".weight-label").classed("dimmed", function(l) { return !connEdges.has(l._id); });
+
+  const z = nodeZone(n);
+  const outN = linkList.filter(l=>l.s===n.id);
+  const inN  = linkList.filter(l=>l.t===n.id);
+  document.getElementById("node-info").innerHTML = `
+    <div class="ni-id" style="color:${z.fill}">${n.id}</div>
+    <div class="ni-name">${n.label}</div>
+    <div class="ni-row"><span>Zone</span><span class="ni-val" style="color:${z.fill}">${z.label}</span></div>
+    <div class="ni-row"><span>Out-degree</span><span class="ni-val">${outN.length}</span></div>
+    <div class="ni-row"><span>In-degree</span><span class="ni-val">${inN.length}</span></div>
+    <div style="margin-top:6px;font-size:11px;color:#778">→ connects to: ${outN.map(l=>`<b style="color:#aac">${nodeById[l.t].label}</b>`).join(", ")||"—"}</div>`;
+}
+
+// hack: get node id from d3 selection datum
+function nd3(el) { return d3.select(el).attr("data-node"); }
+// proper fix using event
+d3.selectAll(".node-g").each(function(d) { /* data not bound */ });
+
+// ── ZONE FOCUS ───────────────────────────────────────────────────────────────
+function focusZone(zid) {
+  if (activeZone === zid) { clearAll(); return; }
+  activeZone = zid;
+  const z = zoneById[zid];
+  document.querySelectorAll(".zone-btn").forEach(b =>
+    b.classList.toggle("active", b.dataset.zone === zid));
+
+  d3.selectAll(".zone-bg")
+    .classed("dimmed", function() { return d3.select(this.parentNode).attr("data-zone") !== zid; })
+    .classed("highlighted", function() { return d3.select(this.parentNode).attr("data-zone") === zid; });
+
+  d3.selectAll(".node-g")
+    .classed("dimmed", function() { return d3.select(this).attr("data-zone") !== zid; });
+
+  // dim edges not inside zone
+  d3.selectAll(".edge").each(function(l) {
+    const inside = z.nodes.includes(l.s) && z.nodes.includes(l.t);
+    const touches = z.nodes.includes(l.s) || z.nodes.includes(l.t);
+    d3.select(this)
+      .classed("dimmed", !touches)
+      .classed("highlighted", touches)
+      .attr("stroke", touches ? "#5588ff" : "#223")
+      .attr("stroke-width", touches ? "2.5" : "1.2")
+      .attr("marker-end", touches ? "url(#arr-hi)" : "url(#arr-dim)");
+  });
+  d3.selectAll(".weight-label").classed("dimmed", function(l) {
+    return !z.nodes.includes(l.s) && !z.nodes.includes(l.t);
+  });
+
+  // zoom to zone
+  const pad = 40;
+  const box = { x: z.x-pad, y: z.y-pad, w: z.w+pad*2, h: z.h+pad*2 };
+  resetZoom(box);
+}
+
+// ── PATH FINDER (Floyd-Warshall) ──────────────────────────────────────────────
+function findPath() {
+  const src = +document.getElementById("src-sel").value;
+  const dst = +document.getElementById("dst-sel").value;
+  if (isNaN(src) || isNaN(dst) || src === dst) {
+    document.getElementById("path-result").innerHTML = '<span style="color:#f88">Select two different nodes.</span>';
+    return;
+  }
+
+  const path = fwPath(src, dst);
+  if (!path) {
+    document.getElementById("path-result").innerHTML = '<span style="color:#f88">No path exists between these nodes.</span>';
+    return;
+  }
+
+  // collect edges along the path
+  const pEdgeIds = new Set();
+  for (let i = 0; i < path.length-1; i++) {
+    const idx = linkList.findIndex(l => l.s === path[i] && l.t === path[i+1]);
+    if (idx >= 0) pEdgeIds.add(idx);
+  }
+  pathNodes = new Set(path);
+  pathEdges = pEdgeIds;
+
+  // visual
+  d3.selectAll(".node-g")
+    .classed("dimmed",    function() { return !pathNodes.has(+d3.select(this).attr("data-node")); })
+    .classed("path-node", function() { return  pathNodes.has(+d3.select(this).attr("data-node")); })
+    .classed("selected", false);
+
+  d3.selectAll(".edge").each(function(l) {
+    d3.select(this)
+      .classed("dimmed",     !pEdgeIds.has(l._id))
+      .classed("path-edge",   pEdgeIds.has(l._id))
+      .classed("highlighted", false)
+      .attr("stroke",       pEdgeIds.has(l._id) ? "#ffc700" : "#223")
+      .attr("stroke-width", pEdgeIds.has(l._id) ? "4" : "1.2")
+      .attr("marker-end",   pEdgeIds.has(l._id) ? "url(#arr-path)" : "url(#arr-dim)");
+  });
+  d3.selectAll(".weight-label")
+    .classed("dimmed", function(l) { return !pEdgeIds.has(l._id); })
+    .classed("path-label", function(l) { return  pEdgeIds.has(l._id); });
+
+  // result text
+  const total = fwDist(src, dst);
+  const steps = path.map(id =>
+    `<span class="path-step">${id} <span style="font-weight:400;font-size:10px">${nodeById[id].label}</span></span>`
+  ).join('<span class="path-arrow"> → </span>');
+  document.getElementById("path-result").innerHTML =
+    `${steps}<br><span style="color:#888;font-size:11px">Total (Floyd-Warshall L*): </span>
+     <span style="color:#ffc700;font-weight:700">${total} ms</span>`;
+
+  // zoom to fit path
+  const xs = path.map(id => nodeById[id].x), ys = path.map(id => nodeById[id].y);
+  const pad = 80;
+  resetZoom({
+    x: Math.min(...xs)-pad, y: Math.min(...ys)-pad,
+    w: Math.max(...xs)-Math.min(...xs)+pad*2,
+    h: Math.max(...ys)-Math.min(...ys)+pad*2
+  });
+}
+
+// ── POPULATE PANEL CONTROLS ───────────────────────────────────────────────────
+// Zone buttons
+const zbEl = document.getElementById("zone-buttons");
+ZONES.forEach(z => {
+  const btn = document.createElement("button");
+  btn.className = "zone-btn"; btn.dataset.zone = z.id;
+  btn.style.borderColor = z.fill + "55";
+  btn.innerHTML = `<span class="dot" style="background:${z.fill}"></span>${z.label}`;
+  btn.addEventListener("click", () => focusZone(z.id));
+  zbEl.appendChild(btn);
+});
+
+// Selects for path finder
+["src-sel","dst-sel"].forEach(id => {
+  const sel = document.getElementById(id);
+  nodeList.forEach(n => {
+    const opt = document.createElement("option");
+    opt.value = n.id; opt.textContent = `${n.id} – ${n.label}`;
+    sel.appendChild(opt);
+  });
+});
+document.getElementById("find-btn").addEventListener("click", findPath);
+document.getElementById("reset-btn").addEventListener("click", clearAll);
+document.getElementById("zoom-in").addEventListener("click", () => doZoom(1.4));
+document.getElementById("zoom-out").addEventListener("click", () => doZoom(1/1.4));
+document.getElementById("zoom-reset").addEventListener("click", () => resetZoom());
+
+// Legend
+const legEl = document.getElementById("legend");
+ZONES.forEach(z => {
+  legEl.innerHTML += `<div class="legend-item"><div class="legend-dot" style="background:${z.fill}"></div>${z.label}</div>`;
+});
+
+// ── INITIAL VIEW ─────────────────────────────────────────────────────────────
+resetZoom();
+</script>
+</body>
+</html>
